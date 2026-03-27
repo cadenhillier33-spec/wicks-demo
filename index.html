@@ -345,6 +345,39 @@ body {
   line-height: 1.3;
 }
 
+/* MOBILE RESPONSIVE */
+@media (max-width: 768px) {
+  .header { padding: 30px 20px 20px; }
+  .header h1 { font-size: 26px; }
+  .header .sub { font-size: 14px; }
+  .sections { padding: 0 16px; }
+  .section h2 { font-size: 20px; }
+  .section-sub { font-size: 12px; }
+  .phone-section { flex-direction: column; gap: 20px; }
+  .phone { width: 100%; }
+  .email-mock, .report-mock { padding: 16px; }
+  .email-subject { font-size: 14px; }
+  .email-content { font-size: 12.5px; }
+  .report-stats { grid-template-columns: 1fr 1fr; }
+  .results-grid { grid-template-columns: 1fr 1fr; }
+  .result-card { padding: 16px 10px; }
+  .result-card .rnum { font-size: 28px; }
+  .context-card { max-width: 100% !important; }
+  .email-mock { max-width: 100% !important; }
+  .report-mock { max-width: 100% !important; }
+  .report-header { flex-direction: column; gap: 4px; align-items: flex-start; }
+  .log-item { font-size: 11px; }
+  .log-time { width: 55px; font-size: 10px; }
+  /* Section 5 call grid */
+  .section div[style*="grid-template-columns:1fr 1fr"] { grid-template-columns: 1fr !important; }
+  /* Section 6 renewal stats */
+  .section div[style*="grid-template-columns:repeat(4"] { grid-template-columns: 1fr 1fr !important; }
+  /* Section 6 renewal table */
+  .section div[style*="grid-template-columns:2fr"] { grid-template-columns: 1fr !important; gap: 2px; }
+  .section div[style*="grid-template-columns:2fr"] span { font-size: 11px !important; }
+  .header-badge { font-size: 10px; padding: 5px 14px; }
+}
+
 /* FOOTER */
 .demo-footer {
   text-align: center;
