@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wicks Insurance AI Employee — What You'll See</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Inter', sans-serif;
+  background: #000;
+  color: #e2e8f0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-x: hidden;
+}
+
+/* HEADER */
+.header {
+  text-align: center;
+  padding: 50px 40px 30px;
+  width: 100%;
+  max-width: 1200px;
+}
+.header-badge {
+  display: inline-block;
+  background: rgba(59,130,246,0.08);
+  border: 1px solid rgba(59,130,246,0.15);
+  border-radius: 20px;
+  padding: 6px 18px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #3b82f6;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.header h1 {
+  font-size: 40px;
+  font-weight: 900;
+  color: #fff;
+  line-height: 1.15;
+  margin-bottom: 10px;
+  letter-spacing: -1.5px;
+}
+.header h1 em { color: #3b82f6; font-style: normal; }
+.header .sub {
+  font-size: 16px;
+  color: #64748b;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* SECTION CONTAINER */
+.sections {
+  width: 100%;
+  max-width: 1100px;
+  padding: 0 40px;
+}
+
+/* SECTION */
+.section {
+  margin-bottom: 50px;
+}
+.section-num {
+  font-size: 11px;
+  font-weight: 700;
+  color: #3b82f6;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.section h2 {
+  font-size: 26px;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 6px;
+  letter-spacing: -0.5px;
+}
+.section .section-sub {
+  font-size: 13px;
+  color: #64748b;
+  margin-bottom: 20px;
+}
+
+/* PHONE MOCKUP */
+.phone-section {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+}
+.phone {
+  width: 340px;
+  flex-shrink: 0;
+  background: #111;
+  border: 2px solid #222;
+  border-radius: 28px;
+  padding: 16px;
+  position: relative;
+}
+.phone-notch {
+  width: 100px;
+  height: 6px;
+  background: #222;
+  border-radius: 3px;
+  margin: 0 auto 12px;
+}
+.phone-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #222;
+}
+.phone-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(59,130,246,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 700;
+  color: #3b82f6;
+}
+.phone-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+}
+.phone-status {
+  font-size: 10px;
+  color: #22c55e;
+}
+.sms {
+  margin-bottom: 10px;
+}
+.sms-bubble {
+  max-width: 85%;
+  padding: 10px 14px;
+  border-radius: 16px;
+  font-size: 13px;
+  line-height: 1.45;
+}
+.sms-client {
+  background: #2a2a2a;
+  color: #d4d4d4;
+  border-bottom-left-radius: 4px;
+  margin-right: auto;
+}
+.sms-ai {
+  background: #1a56db;
+  color: #fff;
+  border-bottom-right-radius: 4px;
+  margin-left: auto;
+}
+.sms-time {
+  font-size: 9px;
+  color: #555;
+  margin-top: 3px;
+  text-align: center;
+}
+.phone-context {
+  flex: 1;
+  padding-top: 10px;
+}
+.context-card {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 10px;
+  padding: 16px;
+  margin-bottom: 12px;
+}
+.context-card .cc-title {
+  font-size: 10px;
+  font-weight: 700;
+  color: #3b82f6;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 8px;
+}
+.context-card p {
+  font-size: 13px;
+  color: #94a3b8;
+  line-height: 1.5;
+}
+.context-card .highlight {
+  color: #fff;
+  font-weight: 600;
+}
+
+/* EMAIL MOCKUP */
+.email-mock {
+  background: #111;
+  border: 1px solid #222;
+  border-radius: 12px;
+  padding: 24px;
+  max-width: 650px;
+}
+.email-topbar {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+.email-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+.dot-red { background: #ff5f57; }
+.dot-yellow { background: #febc2e; }
+.dot-green { background: #28c840; }
+.email-meta {
+  margin-bottom: 14px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #222;
+}
+.email-row {
+  display: flex;
+  gap: 10px;
+  font-size: 12px;
+  margin-bottom: 4px;
+}
+.email-label { color: #555; width: 55px; flex-shrink: 0; }
+.email-val { color: #ccc; }
+.email-val strong { color: #fff; }
+.email-subject {
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  margin-top: 8px;
+}
+.email-content {
+  font-size: 13.5px;
+  color: #b0b8c4;
+  line-height: 1.65;
+}
+.email-content p { margin-bottom: 12px; }
+.email-sig {
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid #222;
+  font-size: 12px;
+  color: #555;
+  line-height: 1.5;
+}
+
+/* MORNING REPORT */
+.report-mock {
+  background: #111;
+  border: 1px solid #222;
+  border-radius: 12px;
+  padding: 24px;
+  max-width: 650px;
+}
+.report-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #222;
+}
+.report-title {
+  font-size: 18px;
+  font-weight: 800;
+  color: #fff;
+}
+.report-date {
+  font-size: 12px;
+  color: #555;
+}
+.report-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.rstat {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 8px;
+  padding: 12px;
+  text-align: center;
+}
+.rstat .num {
+  font-size: 28px;
+  font-weight: 800;
+  color: #3b82f6;
+  line-height: 1;
+}
+.rstat .num.green { color: #22c55e; }
+.rstat .num.gold { color: #D4A853; }
+.rstat .rlabel {
+  font-size: 10px;
+  color: #555;
+  margin-top: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.report-log {
+  font-size: 12px;
+}
+.log-item {
+  display: flex;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.log-time { color: #444; width: 65px; flex-shrink: 0; }
+.log-event { color: #94a3b8; }
+.log-event strong { color: #e2e8f0; }
+
+/* RESULTS */
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-top: 20px;
+}
+.result-card {
+  background: rgba(59,130,246,0.04);
+  border: 1px solid rgba(59,130,246,0.1);
+  border-radius: 12px;
+  padding: 24px 16px;
+  text-align: center;
+}
+.result-card .rnum {
+  font-size: 36px;
+  font-weight: 900;
+  color: #3b82f6;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.result-card .rnum.green { color: #22c55e; }
+.result-card .rnum.gold { color: #D4A853; }
+.result-card .rlabel {
+  font-size: 11px;
+  color: #64748b;
+  line-height: 1.3;
+}
+
+/* FOOTER */
+.demo-footer {
+  text-align: center;
+  padding: 40px;
+  font-size: 11px;
+  color: #333;
+}
+.demo-footer span { color: #475569; font-weight: 600; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-badge">AI Employee Demo — The Wicks Insurance Group</div>
+  <h1>This is what your <em>AI employee</em> does while your team sleeps.</h1>
+  <div class="sub">Every interaction below happened autonomously. No human touched it.</div>
+</div>
+
+<div class="sections">
+
+  <!-- SECTION 1: TEXT CONVERSATION -->
+  <div class="section">
+    <div class="section-num">01 — After-Hours Client Service</div>
+    <h2>Client texts at 8:47 PM. Resolved in 2 minutes.</h2>
+    <div class="section-sub">Your office closed at 5. The AI employee didn't.</div>
+
+    <div class="phone-section">
+      <div class="phone">
+        <div class="phone-notch"></div>
+        <div class="phone-header">
+          <div class="phone-avatar">WI</div>
+          <div>
+            <div class="phone-name">Wicks Insurance</div>
+            <div class="phone-status">● Online</div>
+          </div>
+        </div>
+
+        <div class="sms-time">8:47 PM — After Hours</div>
+
+        <div class="sms">
+          <div class="sms-bubble sms-client">Hi, I need a certificate of insurance sent to my contractor by tomorrow morning. His email is jharris@harrisbuilders.com. Can someone help?</div>
+        </div>
+
+        <div class="sms">
+          <div class="sms-bubble sms-ai">Hi Sarah! I can help with that right now. Pulling up your policy #WK-3847. I'll have the certificate sent to Harris Builders within the next few minutes.</div>
+        </div>
+
+        <div class="sms-time">12 seconds later</div>
+
+        <div class="sms">
+          <div class="sms-bubble sms-client">Wow that was fast! I thought I'd have to wait until morning. Thank you!</div>
+        </div>
+
+        <div class="sms">
+          <div class="sms-bubble sms-ai">Done! Certificate sent to jharris@harrisbuilders.com. Copy in your email too. Anything else tonight, Sarah?</div>
+        </div>
+      </div>
+
+      <div class="phone-context">
+        <div class="context-card">
+          <div class="cc-title">What happened here</div>
+          <p>A client needed a certificate of insurance at <span class="highlight">8:47 PM on a Tuesday</span>. Without an AI employee, this goes to voicemail. The contractor doesn't get it. The job gets delayed. The client gets frustrated.</p>
+          <p style="margin-top:10px;">Instead, it was <span class="highlight">resolved in under 2 minutes</span>. The client thinks your team is incredible. They tell their friends.</p>
+        </div>
+        <div class="context-card">
+          <div class="cc-title">What your competitors did</div>
+          <p>Their phone went to voicemail. The client is still waiting.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 2: RENEWAL EMAIL -->
+  <div class="section">
+    <div class="section-num">02 — Proactive Renewal Outreach</div>
+    <h2>60 days before expiration. Automatically.</h2>
+    <div class="section-sub">No one on your team had to remember. The AI employee handled it.</div>
+
+    <div class="email-mock">
+      <div class="email-topbar">
+        <div class="email-dot dot-red"></div>
+        <div class="email-dot dot-yellow"></div>
+        <div class="email-dot dot-green"></div>
+      </div>
+      <div class="email-meta">
+        <div class="email-row"><span class="email-label">From:</span><span class="email-val"><strong>Wicks Insurance Group</strong></span></div>
+        <div class="email-row"><span class="email-label">To:</span><span class="email-val">rjohnson@email.com</span></div>
+        <div class="email-row"><span class="email-label">Subject:</span></div>
+        <div class="email-subject">Your Auto Policy Renewal — Let's Make Sure You're Getting the Best Rate</div>
+      </div>
+      <div class="email-content">
+        <p>Hi Robert,</p>
+        <p>I wanted to reach out ahead of your auto policy renewal coming up on May 25th. We like to get ahead of these by a couple months so you're never scrambling at the last minute.</p>
+        <p>I've already started shopping rates across our carrier network to make sure you're getting the most competitive pricing. A few things I want to check with you:</p>
+        <p>• Any changes to vehicles or drivers this year?<br>
+        • Have you had any claims or tickets since last renewal?<br>
+        • Are you interested in bundling with your homeowner's for additional savings?</p>
+        <p>If you have a few minutes this week, I'd love to hop on a quick call to review your options. You can grab a time here or just reply to this email.</p>
+        <p>Looking forward to making sure you're covered at the best possible rate.</p>
+        <div class="email-sig">
+          The Wicks Insurance Group<br>
+          (603) 533-0395 • wicksinsurance.com
+        </div>
+      </div>
+    </div>
+
+    <div class="context-card" style="max-width:650px; margin-top:16px;">
+      <div class="cc-title">Why this matters</div>
+      <p>Your team was going to touch this renewal <span class="highlight">30 days before expiration</span>. By then, Robert already got a quote from GEICO. The AI employee reached out at <span class="highlight">60 days</span> — before anyone else could. Robert's staying.</p>
+    </div>
+  </div>
+
+  <!-- SECTION 3: MORNING REPORT -->
+  <div class="section">
+    <div class="section-num">03 — Your Morning Briefing</div>
+    <h2>What your AI employee did while you slept.</h2>
+    <div class="section-sub">This lands in your inbox every morning at 7 AM.</div>
+
+    <div class="report-mock">
+      <div class="report-header">
+        <div class="report-title">🟢 Overnight Report — Wicks Insurance AI</div>
+        <div class="report-date">Wednesday, March 26, 2026</div>
+      </div>
+
+      <div class="report-stats">
+        <div class="rstat"><div class="num">8</div><div class="rlabel">Inquiries<br>Handled</div></div>
+        <div class="rstat"><div class="num green">3</div><div class="rlabel">Leads<br>Qualified</div></div>
+        <div class="rstat"><div class="num gold">5</div><div class="rlabel">Renewals<br>Sent</div></div>
+        <div class="rstat"><div class="num">14s</div><div class="rlabel">Avg Response<br>Time</div></div>
+      </div>
+
+      <div class="report-log">
+        <div class="log-item"><span class="log-time">5:30 PM</span><span class="log-event">Followed up on <strong>5 outstanding quotes</strong> from this week</span></div>
+        <div class="log-item"><span class="log-time">6:15 PM</span><span class="log-event">Answered billing question — <strong>Tom Parker</strong> re: premium increase</span></div>
+        <div class="log-item"><span class="log-time">7:50 PM</span><span class="log-event">Drafted outreach to <strong>Northshore Construction</strong> — new commercial permit filed</span></div>
+        <div class="log-item"><span class="log-time">8:47 PM</span><span class="log-event">Resolved COI request — <strong>Sarah Mitchell</strong> → Harris Builders</span></div>
+        <div class="log-item"><span class="log-time">9:22 PM</span><span class="log-event">Qualified inbound lead — <strong>Mike Reeves</strong>, commercial GL for landscaping co.</span></div>
+        <div class="log-item"><span class="log-time">10:05 PM</span><span class="log-event">Sent <strong>5 renewal outreach emails</strong> — 60-day window policies</span></div>
+        <div class="log-item"><span class="log-time">11:30 PM</span><span class="log-event">Answered coverage question — <strong>Lisa Chen</strong> re: flood endorsement</span></div>
+        <div class="log-item"><span class="log-time">6:45 AM</span><span class="log-event">Generated this morning report ✅</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 4: 30-DAY RESULTS -->
+  <div class="section">
+    <div class="section-num">04 — Projected 30-Day Results</div>
+    <h2>This is what the first month looks like.</h2>
+    <div class="section-sub">Conservative estimates based on your current volume of 300 policies/month.</div>
+
+    <div class="results-grid">
+      <div class="result-card"><div class="rnum">720+</div><div class="rlabel">Client inquiries<br>handled</div></div>
+      <div class="result-card"><div class="rnum green">150</div><div class="rlabel">Renewal outreach<br>emails sent</div></div>
+      <div class="result-card"><div class="rnum gold">45+</div><div class="rlabel">New leads<br>qualified</div></div>
+      <div class="result-card"><div class="rnum">100%</div><div class="rlabel">After-hours calls<br>answered</div></div>
+    </div>
+
+    <div class="context-card" style="margin-top:20px;">
+      <div class="cc-title">The bottom line</div>
+      <p>Your 20 employees get their time back. Your clients get faster service than they've ever had. Your renewals get touched <span class="highlight">60 days out instead of 30</span>. And every call that comes in at 7 PM, 10 PM, or 2 AM gets answered — <span class="highlight">while your competitors go to voicemail.</span></p>
+      <p style="margin-top:10px;">All for <span class="highlight">$600/month</span>.</p>
+    </div>
+  </div>
+
+</div>
+
+<div class="demo-footer">
+  Powered by <span>Mainstay Digital</span> • mainstayhq.com<br>
+  This demo was built specifically for The Wicks Insurance Group.
+</div>
+
+<script>
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+async function typeText(el, text, speed = 18) {
+  el.textContent = '';
+  for (let i = 0; i < text.length; i++) {
+    el.textContent += text[i];
+    await sleep(speed);
+  }
+}
+
+async function fadeIn(el, ms = 500) {
+  el.style.opacity = '0';
+  el.style.transition = `opacity ${ms}ms ease`;
+  el.style.visibility = 'visible';
+  await sleep(30);
+  el.style.opacity = '1';
+  await sleep(ms);
+}
+
+async function countUp(el, target, duration = 1200) {
+  const start = 0;
+  const steps = 30;
+  const stepTime = duration / steps;
+  for (let i = 1; i <= steps; i++) {
+    el.textContent = Math.round((target / steps) * i);
+    await sleep(stepTime);
+  }
+  el.textContent = target;
+}
+
+async function runDemo() {
+  // Hide everything initially
+  const sections = document.querySelectorAll('.section');
+  sections.forEach(s => { s.style.opacity = '0'; s.style.visibility = 'hidden'; });
+
+  // Scroll to top
+  window.scrollTo(0, 0);
+  await sleep(1500);
+
+  // SECTION 1: Phone conversation
+  const s1 = sections[0];
+  s1.style.visibility = 'visible';
+  await fadeIn(s1, 600);
+
+  const smsBubbles = s1.querySelectorAll('.sms-bubble');
+  const smsContainers = s1.querySelectorAll('.sms');
+  smsContainers.forEach(s => { s.style.opacity = '0'; s.style.visibility = 'hidden'; });
+
+  // Client message 1
+  const texts = [];
+  smsBubbles.forEach(b => { texts.push(b.textContent); b.textContent = ''; });
+
+  await sleep(800);
+  smsContainers[0].style.visibility = 'visible';
+  await fadeIn(smsContainers[0], 300);
+  await typeText(smsBubbles[0], texts[0], 14);
+  await sleep(1200);
+
+  // AI response
+  smsContainers[1].style.visibility = 'visible';
+  await fadeIn(smsContainers[1], 300);
+  await typeText(smsBubbles[1], texts[1], 10);
+  await sleep(1000);
+
+  // Client reply
+  smsContainers[2].style.visibility = 'visible';
+  await fadeIn(smsContainers[2], 300);
+  await typeText(smsBubbles[2], texts[2], 14);
+  await sleep(800);
+
+  // AI final
+  smsContainers[3].style.visibility = 'visible';
+  await fadeIn(smsContainers[3], 300);
+  await typeText(smsBubbles[3], texts[3], 10);
+
+  // Show context cards
+  const contextCards = s1.querySelectorAll('.context-card');
+  for (const card of contextCards) {
+    await sleep(600);
+    await fadeIn(card, 400);
+  }
+
+  await sleep(2000);
+
+  // Smooth scroll to section 2
+  sections[1].style.visibility = 'visible';
+  sections[1].scrollIntoView({ behavior: 'smooth', block: 'start' });
+  await sleep(800);
+  await fadeIn(sections[1], 600);
+
+  await sleep(4000);
+
+  // Scroll to section 3
+  sections[2].style.visibility = 'visible';
+  sections[2].scrollIntoView({ behavior: 'smooth', block: 'start' });
+  await sleep(800);
+  await fadeIn(sections[2], 600);
+
+  // Animate stat numbers
+  const rstats = sections[2].querySelectorAll('.rstat .num');
+  const targets = [8, 3, 5, 14];
+  const suffixes = ['', '', '', 's'];
+  await sleep(500);
+  const promises = [];
+  rstats.forEach((el, i) => {
+    const orig = el.textContent;
+    el.textContent = '0';
+    promises.push((async () => {
+      await countUp(el, targets[i], 1000);
+      el.textContent = orig;
+    })());
+  });
+  await Promise.all(promises);
+
+  // Show log items one by one
+  const logItems = sections[2].querySelectorAll('.log-item');
+  logItems.forEach(l => { l.style.opacity = '0'; l.style.visibility = 'hidden'; });
+  for (const item of logItems) {
+    item.style.visibility = 'visible';
+    await fadeIn(item, 200);
+    await sleep(300);
+  }
+
+  await sleep(3000);
+
+  // Scroll to section 4
+  sections[3].style.visibility = 'visible';
+  sections[3].scrollIntoView({ behavior: 'smooth', block: 'start' });
+  await sleep(800);
+  await fadeIn(sections[3], 600);
+
+  // Count up results
+  const resultNums = sections[3].querySelectorAll('.rnum');
+  const resultTargets = [720, 150, 45, 100];
+  const resultTexts = ['720+', '150', '45+', '100%'];
+  resultNums.forEach(el => { el.textContent = '0'; });
+  await sleep(500);
+  const rPromises = resultNums.length;
+  for (let i = 0; i < resultNums.length; i++) {
+    countUp(resultNums[i], resultTargets[i], 1500);
+  }
+  await sleep(1800);
+  resultNums.forEach((el, i) => { el.textContent = resultTexts[i]; });
+
+  // Show bottom context card
+  const bottomCard = sections[3].querySelector('.context-card');
+  if (bottomCard) {
+    await sleep(500);
+    await fadeIn(bottomCard, 600);
+  }
+
+  await sleep(5000);
+}
+
+setTimeout(runDemo, 1000);
+</script>
+
+</body>
+</html>
