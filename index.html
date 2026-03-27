@@ -19,7 +19,7 @@
   --muted: #64748b;
   --dim: #475569;
 }
-body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--text); height:100vh; overflow:hidden; }
+body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--text); height:100vh; overflow:hidden; -webkit-overflow-scrolling:touch; }
 
 /* LAYOUT */
 .app { display:grid; grid-template-columns:260px 1fr; height:100vh; }
@@ -131,7 +131,9 @@ body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--text); 
 .content {
   flex:1;
   overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
   padding:24px;
+  padding-bottom:80px;
 }
 
 /* WELCOME SCREEN */
@@ -416,6 +418,10 @@ body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--text); 
   .rt-header,.rt-row{grid-template-columns:1fr 1fr;}
   .stats-row{flex-wrap:wrap;}
   .stat-box{min-width:45%;}
+  body{overflow:auto;height:auto;}
+  .app{height:auto;min-height:100vh;}
+  .main{height:auto;overflow:visible;}
+  .content{overflow:visible;padding-bottom:60px;}
   .topbar{flex-direction:column;gap:10px;text-align:center;}
   .topbar-stats{justify-content:center;}
   .view-title{font-size:20px;}
