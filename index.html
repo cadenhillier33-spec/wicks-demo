@@ -17,14 +17,31 @@
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{
   font-family:'DM Sans',system-ui,sans-serif;
-  background:var(--bg);color:var(--text);
+  background:#fff;color:var(--text);
   line-height:1.6;overflow-x:hidden;
   -webkit-font-smoothing:antialiased;
 }
+/* STICKY NAV */
+.sticky-nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:rgba(255,255,255,.85);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(0,0,0,.06);
+  padding:12px 24px;display:flex;justify-content:center;align-items:center;
+  opacity:0;transform:translateY(-100%);transition:all .4s ease;
+}
+.sticky-nav.show{opacity:1;transform:translateY(0)}
+.sticky-nav span{font-size:14px;font-weight:600;color:var(--text)}
+.sticky-nav span em{color:var(--blue);font-style:normal}
+/* ALT SECTIONS */
+.section-alt{background:#f8f9fa}
+.section-white{background:#fff}
 
 /* ═══ SECTION SYSTEM ═══ */
+.section-wrap{padding:1px 0}
+.section-wrap:nth-child(odd){background:#fff}
+.section-wrap:nth-child(even){background:#f9fafb}
 section{
-  padding:100px 24px;
+  padding:120px 24px;
   max-width:900px;
   margin:0 auto;
   opacity:0;
@@ -59,17 +76,23 @@ h2 em{font-style:italic;color:var(--blue)}
 
 /* ═══ HERO ═══ */
 .hero{
-  min-height:90vh;display:flex;flex-direction:column;
+  min-height:100vh;display:flex;flex-direction:column;
   justify-content:center;align-items:center;text-align:center;
-  padding-top:60px;
+  padding-top:60px;background:#fff;
 }
 .hero-brand{
-  font-size:14px;font-weight:500;color:var(--muted);
-  letter-spacing:1px;margin-bottom:40px;
-  padding:8px 20px;border:1px solid var(--light);border-radius:100px;
+  font-size:13px;font-weight:500;color:var(--muted);
+  letter-spacing:1.5px;margin-bottom:48px;
+  padding:10px 24px;border:1px solid var(--light);border-radius:100px;
+  text-transform:uppercase;
 }
-.hero h1{margin-bottom:24px}
-.hero p{font-size:20px;color:var(--muted);max-width:480px;line-height:1.7;margin-bottom:60px}
+.hero h1{margin-bottom:28px}
+.hero h1 .gradient{
+  background:linear-gradient(135deg,var(--blue),#7c3aed);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.hero p{font-size:21px;color:var(--muted);max-width:500px;line-height:1.7;margin-bottom:72px}
 .scroll-hint{
   display:flex;flex-direction:column;align-items:center;gap:8px;
   font-size:13px;color:var(--muted);opacity:.6;
@@ -99,12 +122,14 @@ h2 em{font-style:italic;color:var(--blue)}
 .phone-wrapper{display:flex;gap:48px;align-items:flex-start;margin-top:40px}
 .phone{
   width:320px;flex-shrink:0;
-  background:#fff;border-radius:36px;
-  border:1px solid var(--light);
-  box-shadow:var(--shadow-lg);
-  padding:20px 16px 24px;overflow:hidden;
+  background:#fff;border-radius:40px;
+  border:8px solid #1a1a1a;
+  box-shadow:var(--shadow-lg),inset 0 0 0 2px rgba(255,255,255,.1);
+  padding:16px 14px 20px;overflow:hidden;
+  position:relative;
 }
-.phone-notch{width:120px;height:28px;background:var(--bg);border-radius:14px;margin:0 auto 20px}
+.phone::before{content:'';position:absolute;top:10px;left:50%;transform:translateX(-50%);width:80px;height:22px;background:#1a1a1a;border-radius:12px;z-index:2}
+.phone-notch{display:none}
 .phone-header{
   display:flex;align-items:center;gap:10px;
   padding-bottom:14px;margin-bottom:16px;border-bottom:1px solid var(--light);
@@ -174,8 +199,9 @@ h2 em{font-style:italic;color:var(--blue)}
 .stat-card{
   background:#fff;border:1px solid var(--light);
   border-radius:var(--radius);padding:24px;text-align:center;
-  box-shadow:var(--shadow);
+  box-shadow:var(--shadow);transition:transform .3s,box-shadow .3s;
 }
+.stat-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg)}
 .stat-num{font-size:36px;font-weight:700;color:var(--blue);line-height:1;margin-bottom:6px}
 .stat-num.green{color:var(--green)}
 .stat-num.gold{color:var(--gold)}
@@ -248,7 +274,9 @@ h2 em{font-style:italic;color:var(--blue)}
   background:#fff;border:1px solid var(--light);
   border-radius:var(--radius);padding:32px 20px;
   text-align:center;box-shadow:var(--shadow);
+  transition:transform .3s,box-shadow .3s;
 }
+.result-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg)}
 .result-num{
   font-family:'Instrument Serif',serif;
   font-size:48px;font-weight:400;color:var(--blue);
@@ -307,10 +335,15 @@ h2 em{font-style:italic;color:var(--blue)}
 </head>
 <body>
 
+<!-- STICKY NAV -->
+<div class="sticky-nav" id="sticky-nav">
+  <span><em>AI Employee</em> — The Wicks Insurance Group</span>
+</div>
+
 <!-- HERO -->
 <section class="hero">
   <div class="hero-brand">AI Employee — The Wicks Insurance Group</div>
-  <h1>Your AI employee<br>is ready.</h1>
+  <h1>Your <span class="gradient">AI employee</span><br>is ready.</h1>
   <p>See what happens when your agency never sleeps, never misses a call, and never loses a renewal.</p>
   <div class="scroll-hint">
     <span>Scroll to explore</span>
@@ -318,11 +351,10 @@ h2 em{font-style:italic;color:var(--blue)}
   </div>
 </section>
 
-<div class="divider"></div>
 
 <!-- AFTER HOURS -->
 <section>
-  <div class="eyebrow">After-Hours Service</div>
+  <div class="eyebrow">01 · After-Hours Service</div>
   <h2>Client texts at 8:47 PM.<br><em>Resolved in two minutes.</em></h2>
   <p class="section-desc">Your office closed at 5. Your AI employee didn't.</p>
   <button class="play-btn" onclick="playChat()"><span class="play-icon">▶</span> Watch it happen</button>
@@ -350,11 +382,10 @@ h2 em{font-style:italic;color:var(--blue)}
   </div>
 </section>
 
-<div class="divider"></div>
 
 <!-- CALL HANDLING -->
 <section>
-  <div class="eyebrow">Inbound Call Handling</div>
+  <div class="eyebrow">02 · Inbound Call Handling</div>
   <h2>New lead calls in.<br><em>47 seconds. Done.</em></h2>
   <p class="section-desc">Answered, logged, routed, confirmed — no human needed.</p>
   <button class="play-btn" onclick="playCall()"><span class="play-icon">▶</span> Watch the process</button>
@@ -372,11 +403,10 @@ h2 em{font-style:italic;color:var(--blue)}
   </div>
 </section>
 
-<div class="divider"></div>
 
 <!-- RENEWALS -->
 <section>
-  <div class="eyebrow">Renewal Command Center</div>
+  <div class="eyebrow">03 · Renewal Command Center</div>
   <h2>Every policy. Every date.<br><em>Nothing falls through.</em></h2>
   <p class="section-desc">Your AI employee tracks your entire book and acts before it's too late.</p>
 
@@ -397,11 +427,10 @@ h2 em{font-style:italic;color:var(--blue)}
   </div>
 </section>
 
-<div class="divider"></div>
 
 <!-- AT RISK -->
 <section>
-  <div class="eyebrow">At-Risk Detection</div>
+  <div class="eyebrow">04 · At-Risk Detection</div>
   <h2>The AI catches<br><em>what your team misses.</em></h2>
   <p class="section-desc">Proactive alerts before a client walks out the door.</p>
   <button class="play-btn" onclick="playAlert()"><span class="play-icon">▶</span> Show alert</button>
@@ -430,11 +459,10 @@ h2 em{font-style:italic;color:var(--blue)}
   </div>
 </section>
 
-<div class="divider"></div>
 
 <!-- RESULTS -->
 <section id="results-section">
-  <div class="eyebrow">30-Day Projection</div>
+  <div class="eyebrow">05 · 30-Day Projection</div>
   <h2>What the first month<br><em>looks like.</em></h2>
   <p class="section-desc">Conservative estimates based on your current volume of 300 policies per month.</p>
 
@@ -462,6 +490,13 @@ h2 em{font-style:italic;color:var(--blue)}
 
 <script>
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+
+/* ═══ STICKY NAV ═══ */
+const nav=document.getElementById('sticky-nav');
+window.addEventListener('scroll',()=>{
+  if(window.scrollY>400)nav.classList.add('show');
+  else nav.classList.remove('show');
+},{passive:true});
 
 /* ═══ SCROLL REVEAL ═══ */
 const obs=new IntersectionObserver(entries=>{
