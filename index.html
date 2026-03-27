@@ -167,7 +167,7 @@ body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--text); 
 .mobile-hint { display:none; }
 @media(max-width:768px) {
   .desktop-hint { display:none; }
-  .mobile-hint { display:flex !important; }
+  .mobile-tap-hint { display:block !important; }
 }
 
 /* SCENARIO VIEWS */
@@ -560,15 +560,17 @@ body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--text); 
       <div class="tstat"><div class="tv">24/7</div><div class="tl">Uptime</div></div>
     </div>
   </div>
+  <div class="mobile-tap-hint" style="display:none;text-align:center;padding:12px;font-size:14px;color:var(--blue);font-weight:600;background:rgba(59,130,246,0.06);border-bottom:1px solid rgba(59,130,246,0.1);">
+    ↑ Tap a scenario above to see it in action
+  </div>
   <div class="content">
 
     <!-- WELCOME -->
     <div class="scenario-view active" id="v-welcome">
       <div class="welcome">
         <h2>Your <em>AI Employee</em> is ready.</h2>
-        <p>This is what an AI employee looks like inside The Wicks Insurance Group. Click any scenario on the left to see it in action — handling clients, managing renewals, catching risks, and growing your business 24/7.</p>
+        <p>This is what an AI employee looks like inside The Wicks Insurance Group. Click any scenario to see it in action — handling clients, managing renewals, catching risks, and growing your business 24/7.</p>
         <div class="start-hint desktop-hint"><span class="arrow-left">←</span> Choose a scenario to begin</div>
-        <div class="start-hint mobile-hint"><span class="arrow-up">↑</span> Tap a scenario above to begin</div>
       </div>
     </div>
 
