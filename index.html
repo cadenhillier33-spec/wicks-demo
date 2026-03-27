@@ -116,6 +116,15 @@ h2 em{font-style:italic;color:var(--blue)}
 .play-btn:hover{background:var(--blue-dark);transform:translateY(-1px);box-shadow:0 4px 16px rgba(37,99,235,.35)}
 .play-btn:active{transform:scale(.98)}
 .play-btn:disabled{opacity:.5;cursor:default;transform:none}
+.replay-btn{
+  display:none;align-items:center;gap:8px;
+  background:#fff;color:var(--blue);border:2px solid var(--blue);
+  border-radius:100px;padding:14px 28px;
+  font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;
+  cursor:pointer;transition:all .3s;min-height:52px;margin-top:16px;
+}
+.replay-btn:hover{background:var(--blue-light)}
+.replay-btn.show{display:inline-flex}
 .play-icon{font-size:18px}
 
 /* ═══ PHONE MOCKUP ═══ */
@@ -357,7 +366,8 @@ h2 em{font-style:italic;color:var(--blue)}
   <div class="eyebrow">01 · After-Hours Service</div>
   <h2>Client texts at 8:47 PM.<br><em>Resolved in two minutes.</em></h2>
   <p class="section-desc">Your office closed at 5. Your AI employee didn't.</p>
-  <button class="play-btn" onclick="playChat()"><span class="play-icon">▶</span> Watch it happen</button>
+  <button class="play-btn" id="chat-play" onclick="playChat()"><span class="play-icon">▶</span> Watch it happen</button>
+  <button class="replay-btn" id="chat-replay" onclick="replayChat()"><span class="play-icon">↻</span> Watch again</button>
 
   <div class="phone-wrapper">
     <div class="phone">
@@ -388,7 +398,8 @@ h2 em{font-style:italic;color:var(--blue)}
   <div class="eyebrow">02 · Inbound Call Handling</div>
   <h2>New lead calls in.<br><em>47 seconds. Done.</em></h2>
   <p class="section-desc">Answered, logged, routed, confirmed — no human needed.</p>
-  <button class="play-btn" onclick="playCall()"><span class="play-icon">▶</span> Watch the process</button>
+  <button class="play-btn" id="call-play" onclick="playCall()"><span class="play-icon">▶</span> Watch the process</button>
+  <button class="replay-btn" id="call-replay" onclick="replayCall()"><span class="play-icon">↻</span> Watch again</button>
 
   <div class="action-card" id="call-card" style="opacity:0;transition:opacity .5s">
     <div style="display:flex;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:12px">
@@ -433,7 +444,8 @@ h2 em{font-style:italic;color:var(--blue)}
   <div class="eyebrow">04 · At-Risk Detection</div>
   <h2>The AI catches<br><em>what your team misses.</em></h2>
   <p class="section-desc">Proactive alerts before a client walks out the door.</p>
-  <button class="play-btn" onclick="playAlert()"><span class="play-icon">▶</span> Show alert</button>
+  <button class="play-btn" id="alert-play" onclick="playAlert()"><span class="play-icon">▶</span> Show alert</button>
+  <button class="replay-btn" id="alert-replay" onclick="replayAlert()"><span class="play-icon">↻</span> Watch again</button>
 
   <div class="alert-card" id="alert-box">
     <div class="alert-head">
@@ -574,7 +586,6 @@ h2 em{font-style:italic;color:var(--blue)}
 <!-- CTA -->
 <section class="cta">
   <h2>Ready to get started?</h2>
-  <p>Let's talk about what an AI employee can do for The Wicks Insurance Group.</p>
   <div class="contact">Caden Hillier · cadenhillier33@gmail.com · mainstayhq.com</div>
 </section>
 
@@ -641,6 +652,15 @@ async function playChat(){
   document.getElementById('ctx1').style.opacity='1';
   await sleep(600);
   document.getElementById('ctx2').style.opacity='1';
+  document.getElementById('chat-replay').classList.add('show');
+}
+function replayChat(){
+  document.getElementById('chat-replay').classList.remove('show');
+  document.getElementById('chat-play').disabled=false;
+  document.getElementById('chat').innerHTML='';
+  document.getElementById('ctx1').style.opacity='0';
+  document.getElementById('ctx2').style.opacity='0';
+  playChat();
 }
 
 /* ═══ CALL ═══ */
@@ -664,13 +684,27 @@ async function playCall(){
   }
   await sleep(300);
   document.getElementById('call-total').style.opacity='1';
+  document.getElementById('call-replay').classList.add('show');
+}
+function replayCall(){
+  document.getElementById('call-replay').classList.remove('show');
+  document.getElementById('call-play').disabled=false;
+  document.getElementById('call-actions').innerHTML='';
+  document.getElementById('call-total').style.opacity='0';
+  playCall();
 }
 
 /* ═══ ALERT ═══ */
 function playAlert(){
-  const btn=document.querySelector('#alert-box').closest('section').querySelector('.play-btn');
-  btn.disabled=true;
+  document.getElementById('alert-play').disabled=true;
   document.getElementById('alert-box').classList.add('show');
+  document.getElementById('alert-replay').classList.add('show');
+}
+function replayAlert(){
+  document.getElementById('alert-replay').classList.remove('show');
+  document.getElementById('alert-play').disabled=false;
+  document.getElementById('alert-box').classList.remove('show');
+  setTimeout(()=>playAlert(),300);
 }
 </script>
 </body>
