@@ -409,6 +409,55 @@ body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--text); 
   .rt-header,.rt-row{grid-template-columns:1fr 1fr;}
   .stats-row{flex-wrap:wrap;}
   .stat-box{min-width:45%;}
+  .topbar{flex-direction:column;gap:10px;text-align:center;}
+  .topbar-stats{justify-content:center;}
+  .view-title{font-size:20px;}
+  .chat-bubble{font-size:14px;}
+  .context-box p{font-size:14px;}
+  .play-btn{width:100%;justify-content:center;padding:14px;font-size:15px;}
+  .alert-box{padding:14px;}
+  .welcome h2{font-size:24px;}
+  .welcome p{font-size:14px;}
+}
+
+/* SENIOR-FRIENDLY: Larger touch targets, bigger text, high contrast */
+.play-btn {
+  min-height:48px;
+  font-size:15px;
+  padding:14px 24px;
+}
+.scenario-btn {
+  min-height:52px;
+  padding:14px 16px;
+}
+.chat-bubble {
+  font-size:14px;
+  line-height:1.55;
+}
+.context-box p {
+  font-size:14px;
+  line-height:1.65;
+}
+.action-text {
+  font-size:13px;
+}
+.alert-detail {
+  font-size:13px;
+  line-height:1.7;
+}
+.alert-actions {
+  font-size:13px;
+  line-height:1.7;
+}
+.info-card .ic-val {
+  font-size:16px;
+}
+.rt-row {
+  padding:12px;
+  font-size:13px;
+}
+.rt-header {
+  font-size:11px;
 }
 
 /* MOBILE NAV */
@@ -425,13 +474,14 @@ body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--text); 
   flex-shrink:0;
   background:rgba(255,255,255,.03);
   border:1px solid var(--border);
-  border-radius:6px;
-  padding:8px 14px;
+  border-radius:8px;
+  padding:12px 16px;
   color:var(--muted);
   font-family:'Inter',sans-serif;
-  font-size:11px;
+  font-size:13px;
   font-weight:600;
   cursor:pointer;
+  min-height:44px;
 }
 .mobile-nav button.active { background:rgba(59,130,246,.1); border-color:rgba(59,130,246,.2); color:var(--blue); }
 </style>
