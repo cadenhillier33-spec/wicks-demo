@@ -162,6 +162,13 @@ body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--text); 
 }
 .arrow-left { font-size:18px; animation:bounceLeft 1.5s infinite; }
 @keyframes bounceLeft{0%,100%{transform:translateX(0)}50%{transform:translateX(-8px)}}
+.arrow-up { font-size:18px; animation:bounceUp 1.5s infinite; }
+@keyframes bounceUp{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.mobile-hint { display:none; }
+@media(max-width:768px) {
+  .desktop-hint { display:none; }
+  .mobile-hint { display:flex !important; }
+}
 
 /* SCENARIO VIEWS */
 .scenario-view { display:none; }
@@ -560,7 +567,8 @@ body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--text); 
       <div class="welcome">
         <h2>Your <em>AI Employee</em> is ready.</h2>
         <p>This is what an AI employee looks like inside The Wicks Insurance Group. Click any scenario on the left to see it in action — handling clients, managing renewals, catching risks, and growing your business 24/7.</p>
-        <div class="start-hint"><span class="arrow-left">←</span> Choose a scenario to begin</div>
+        <div class="start-hint desktop-hint"><span class="arrow-left">←</span> Choose a scenario to begin</div>
+        <div class="start-hint mobile-hint"><span class="arrow-up">↑</span> Tap a scenario above to begin</div>
       </div>
     </div>
 
