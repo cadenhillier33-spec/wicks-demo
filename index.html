@@ -3,792 +3,799 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Wicks Insurance AI Employee — What You'll See</title>
+<title>Wicks Insurance — AI Employee Demo</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body {
-  font-family: 'Inter', sans-serif;
-  background: #000;
-  color: #e2e8f0;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  overflow-x: hidden;
+:root {
+  --bg: #060810;
+  --surface: #0d1117;
+  --border: rgba(255,255,255,0.06);
+  --blue: #3b82f6;
+  --green: #22c55e;
+  --gold: #D4A853;
+  --red: #ef4444;
+  --text: #e2e8f0;
+  --muted: #64748b;
+  --dim: #475569;
+}
+body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--text); height:100vh; overflow:hidden; }
+
+/* LAYOUT */
+.app { display:grid; grid-template-columns:260px 1fr; height:100vh; }
+
+/* SIDEBAR */
+.sidebar {
+  background:var(--surface);
+  border-right:1px solid var(--border);
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+}
+.sidebar-header {
+  padding:20px 18px;
+  border-bottom:1px solid var(--border);
+}
+.sidebar-logo {
+  font-size:13px;
+  font-weight:700;
+  color:var(--blue);
+  letter-spacing:1px;
+  text-transform:uppercase;
+  margin-bottom:4px;
+}
+.sidebar-company {
+  font-size:16px;
+  font-weight:800;
+  color:#fff;
+}
+.sidebar-status {
+  display:flex;
+  align-items:center;
+  gap:6px;
+  margin-top:8px;
+  font-size:11px;
+  color:var(--green);
+}
+.pulse-dot {
+  width:7px;height:7px;background:var(--green);border-radius:50%;
+  animation:pulse 2s infinite;
+}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+
+.scenarios {
+  flex:1;
+  overflow-y:auto;
+  padding:12px;
+}
+.scenarios-title {
+  font-size:9px;
+  font-weight:700;
+  color:var(--dim);
+  letter-spacing:2px;
+  text-transform:uppercase;
+  padding:6px 8px;
+}
+.scenario-btn {
+  width:100%;
+  text-align:left;
+  background:none;
+  border:1px solid transparent;
+  border-radius:8px;
+  padding:12px 14px;
+  cursor:pointer;
+  font-family:'Inter',sans-serif;
+  margin-bottom:4px;
+  transition:all .2s;
+}
+.scenario-btn:hover { background:rgba(255,255,255,.02); border-color:var(--border); }
+.scenario-btn.active { background:rgba(59,130,246,.06); border-color:rgba(59,130,246,.2); }
+.scenario-btn .s-icon { font-size:18px; margin-bottom:6px; }
+.scenario-btn .s-title { font-size:13px; font-weight:600; color:var(--text); display:block; margin-bottom:2px; }
+.scenario-btn .s-desc { font-size:10px; color:var(--muted); line-height:1.4; }
+.scenario-btn.active .s-title { color:#fff; }
+
+.sidebar-footer {
+  padding:14px 18px;
+  border-top:1px solid var(--border);
+  font-size:10px;
+  color:#333;
+}
+.sidebar-footer span { color:var(--dim); font-weight:600; }
+
+/* MAIN CONTENT */
+.main {
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
 }
 
-/* HEADER */
-.header {
-  text-align: center;
-  padding: 50px 40px 30px;
-  width: 100%;
-  max-width: 1200px;
+/* TOP BAR */
+.topbar {
+  background:var(--surface);
+  border-bottom:1px solid var(--border);
+  padding:12px 24px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-shrink:0;
 }
-.header-badge {
-  display: inline-block;
-  background: rgba(59,130,246,0.08);
-  border: 1px solid rgba(59,130,246,0.15);
-  border-radius: 20px;
-  padding: 6px 18px;
-  font-size: 11px;
-  font-weight: 600;
-  color: #3b82f6;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  margin-bottom: 16px;
-}
-.header h1 {
-  font-size: 40px;
-  font-weight: 900;
-  color: #fff;
-  line-height: 1.15;
-  margin-bottom: 10px;
-  letter-spacing: -1.5px;
-}
-.header h1 em { color: #3b82f6; font-style: normal; }
-.header .sub {
-  font-size: 16px;
-  color: #64748b;
-  max-width: 600px;
-  margin: 0 auto;
+.topbar-title { font-size:15px; font-weight:700; color:#fff; }
+.topbar-title em { color:var(--blue); font-style:normal; }
+.topbar-stats { display:flex; gap:24px; }
+.tstat { text-align:center; }
+.tstat .tv { font-size:18px; font-weight:800; color:var(--blue); }
+.tstat .tl { font-size:8px; color:var(--dim); text-transform:uppercase; letter-spacing:1px; }
+
+/* CONTENT AREA */
+.content {
+  flex:1;
+  overflow-y:auto;
+  padding:24px;
 }
 
-/* SECTION CONTAINER */
-.sections {
-  width: 100%;
-  max-width: 1100px;
-  padding: 0 40px;
+/* WELCOME SCREEN */
+.welcome {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  height:100%;
+  text-align:center;
+  padding:40px;
+}
+.welcome h2 {
+  font-size:32px;
+  font-weight:900;
+  color:#fff;
+  margin-bottom:10px;
+  letter-spacing:-1px;
+}
+.welcome h2 em { color:var(--blue); font-style:normal; }
+.welcome p { font-size:15px; color:var(--muted); max-width:500px; line-height:1.6; margin-bottom:30px; }
+.welcome .start-hint {
+  font-size:12px;
+  color:var(--dim);
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.arrow-left { font-size:18px; animation:bounceLeft 1.5s infinite; }
+@keyframes bounceLeft{0%,100%{transform:translateX(0)}50%{transform:translateX(-8px)}}
+
+/* SCENARIO VIEWS */
+.scenario-view { display:none; }
+.scenario-view.active { display:block; }
+
+.view-header {
+  margin-bottom:20px;
+}
+.view-tag {
+  font-size:10px;
+  font-weight:700;
+  color:var(--blue);
+  letter-spacing:2px;
+  text-transform:uppercase;
+  margin-bottom:6px;
+}
+.view-title {
+  font-size:24px;
+  font-weight:800;
+  color:#fff;
+  margin-bottom:4px;
+}
+.view-sub { font-size:13px; color:var(--muted); }
+
+/* CHAT */
+.chat-container {
+  max-width:600px;
+  margin-bottom:20px;
+}
+.chat-msg {
+  display:flex;
+  gap:10px;
+  margin-bottom:14px;
+  opacity:0;
+  transform:translateY(10px);
+  transition:all .4s ease;
+}
+.chat-msg.show { opacity:1; transform:translateY(0); }
+.chat-avatar {
+  width:32px;height:32px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:700;flex-shrink:0;
+}
+.av-client { background:rgba(168,85,247,.15); color:#a855f7; }
+.av-ai { background:rgba(59,130,246,.15); color:var(--blue); }
+.chat-body { flex:1; }
+.chat-name { font-size:11px; font-weight:600; margin-bottom:3px; }
+.chat-name.cn-client { color:#a855f7; }
+.chat-name.cn-ai { color:var(--blue); }
+.chat-bubble {
+  background:rgba(255,255,255,.03);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:10px 14px;
+  font-size:13px;
+  color:#c8d0db;
+  line-height:1.5;
+}
+.chat-bubble.cb-ai {
+  background:rgba(59,130,246,.06);
+  border-color:rgba(59,130,246,.12);
+}
+.chat-time { font-size:10px; color:var(--dim); margin-top:4px; }
+.typing {
+  display:flex; gap:4px; padding:10px 14px;
+  background:rgba(59,130,246,.06);
+  border:1px solid rgba(59,130,246,.12);
+  border-radius:10px;
+  width:fit-content;
+}
+.typing span {
+  width:6px;height:6px;background:var(--blue);border-radius:50%;
+  animation:tbounce 1.4s infinite;
+}
+.typing span:nth-child(2){animation-delay:.2s}
+.typing span:nth-child(3){animation-delay:.4s}
+@keyframes tbounce{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-6px)}}
+
+/* INFO CARDS */
+.info-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:20px; max-width:600px; }
+.info-card {
+  background:rgba(255,255,255,.02);
+  border:1px solid var(--border);
+  border-radius:8px;
+  padding:12px;
+}
+.info-card .ic-label { font-size:9px; color:var(--dim); text-transform:uppercase; letter-spacing:1px; margin-bottom:4px; }
+.info-card .ic-val { font-size:14px; font-weight:600; color:#fff; }
+.info-card .ic-sub { font-size:11px; color:var(--muted); }
+
+/* ACTION LOG */
+.action-log { max-width:600px; }
+.action-item {
+  display:flex;align-items:center;gap:10px;
+  padding:8px 0;
+  border-bottom:1px solid rgba(255,255,255,.03);
+  font-size:12px;
+  opacity:0;
+  transform:translateX(-10px);
+  transition:all .3s ease;
+}
+.action-item.show { opacity:1; transform:translateX(0); }
+.action-check {
+  width:18px;height:18px;border-radius:4px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:10px;background:rgba(34,197,94,.12);color:var(--green);flex-shrink:0;
+}
+.action-text { color:var(--muted); flex:1; }
+.action-text strong { color:var(--text); }
+.action-time { color:var(--blue); font-size:10px; }
+
+/* CONTEXT BOX */
+.context-box {
+  background:rgba(59,130,246,.04);
+  border:1px solid rgba(59,130,246,.1);
+  border-radius:10px;
+  padding:16px;
+  max-width:600px;
+  margin-top:16px;
+}
+.context-box .cb-title { font-size:10px; font-weight:700; color:var(--blue); text-transform:uppercase; letter-spacing:1.5px; margin-bottom:6px; }
+.context-box p { font-size:13px; color:var(--muted); line-height:1.6; }
+.context-box strong { color:#fff; }
+.context-box .highlight { color:var(--blue); font-weight:600; }
+
+/* PLAY BUTTON */
+.play-btn {
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  background:var(--blue);
+  border:none;
+  border-radius:8px;
+  padding:10px 20px;
+  color:#fff;
+  font-family:'Inter',sans-serif;
+  font-size:13px;
+  font-weight:600;
+  cursor:pointer;
+  margin-bottom:20px;
+  transition:all .2s;
+}
+.play-btn:hover { background:#2563eb; }
+.play-btn:active { transform:scale(.98); }
+.play-btn:disabled { opacity:.5; cursor:not-allowed; }
+
+/* RENEWAL TABLE */
+.renewal-table {
+  width:100%;
+  max-width:700px;
+  border:1px solid var(--border);
+  border-radius:8px;
+  overflow:hidden;
+  font-size:12px;
+  margin-bottom:16px;
+}
+.rt-header {
+  display:grid;
+  grid-template-columns:2fr 1.5fr 1fr 1fr;
+  padding:8px 12px;
+  background:rgba(255,255,255,.03);
+  font-size:10px;
+  font-weight:600;
+  color:var(--dim);
+  text-transform:uppercase;
+  letter-spacing:.5px;
+}
+.rt-row {
+  display:grid;
+  grid-template-columns:2fr 1.5fr 1fr 1fr;
+  padding:10px 12px;
+  border-top:1px solid rgba(255,255,255,.03);
+  align-items:center;
+  opacity:0;
+  transition:opacity .3s ease;
+}
+.rt-row.show { opacity:1; }
+.rt-row.at-risk { background:rgba(239,68,68,.03); }
+.rt-name { color:#fff; font-weight:500; }
+.rt-type { color:var(--muted); }
+.rt-status { font-weight:600; font-size:11px; }
+.status-green { color:var(--green); }
+.status-gold { color:var(--gold); }
+.status-red { color:var(--red); }
+.status-blue { color:var(--blue); }
+
+/* ALERT BOX */
+.alert-box {
+  background:rgba(239,68,68,.04);
+  border:1px solid rgba(239,68,68,.15);
+  border-radius:10px;
+  padding:18px;
+  max-width:600px;
+  margin-bottom:16px;
+  opacity:0;
+  transform:scale(.95);
+  transition:all .5s ease;
+}
+.alert-box.show { opacity:1; transform:scale(1); }
+.alert-header { display:flex; align-items:center; gap:10px; margin-bottom:14px; }
+.alert-icon { font-size:24px; }
+.alert-title { font-size:15px; font-weight:700; color:var(--red); }
+.alert-sub { font-size:11px; color:var(--dim); }
+.alert-detail { font-size:12px; color:var(--muted); line-height:1.6; margin-bottom:12px; }
+.alert-detail strong { color:var(--text); }
+.alert-detail .red { color:var(--red); font-weight:600; }
+.alert-actions {
+  background:rgba(34,197,94,.06);
+  border:1px solid rgba(34,197,94,.12);
+  border-radius:6px;
+  padding:12px;
+  font-size:12px;
+  color:var(--muted);
+  line-height:1.6;
+}
+.alert-actions strong { color:var(--green); }
+.alert-save {
+  margin-top:12px;
+  font-size:12px;
+  font-weight:600;
+  color:var(--gold);
 }
 
-/* SECTION */
-.section {
-  margin-bottom: 50px;
+/* STATS ROW */
+.stats-row { display:flex; gap:12px; margin-bottom:20px; max-width:600px; }
+.stat-box {
+  flex:1;
+  background:rgba(255,255,255,.02);
+  border:1px solid var(--border);
+  border-radius:8px;
+  padding:14px;
+  text-align:center;
 }
-.section-num {
-  font-size: 11px;
-  font-weight: 700;
-  color: #3b82f6;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  margin-bottom: 8px;
-}
-.section h2 {
-  font-size: 26px;
-  font-weight: 800;
-  color: #fff;
-  margin-bottom: 6px;
-  letter-spacing: -0.5px;
-}
-.section .section-sub {
-  font-size: 13px;
-  color: #64748b;
-  margin-bottom: 20px;
+.stat-box .sb-num { font-size:24px; font-weight:800; color:var(--blue); line-height:1; }
+.stat-box .sb-num.green { color:var(--green); }
+.stat-box .sb-num.gold { color:var(--gold); }
+.stat-box .sb-label { font-size:9px; color:var(--dim); text-transform:uppercase; letter-spacing:.5px; margin-top:4px; }
+
+/* MOBILE */
+@media(max-width:768px){
+  .app{grid-template-columns:1fr;grid-template-rows:auto 1fr;}
+  .sidebar{display:none;}
+  .mobile-nav{display:flex !important;}
+  .info-grid{grid-template-columns:1fr;}
+  .rt-header,.rt-row{grid-template-columns:1fr 1fr;}
+  .stats-row{flex-wrap:wrap;}
+  .stat-box{min-width:45%;}
 }
 
-/* PHONE MOCKUP */
-.phone-section {
-  display: flex;
-  gap: 40px;
-  align-items: flex-start;
+/* MOBILE NAV */
+.mobile-nav {
+  display:none;
+  background:var(--surface);
+  border-bottom:1px solid var(--border);
+  padding:8px;
+  overflow-x:auto;
+  gap:6px;
+  flex-shrink:0;
 }
-.phone {
-  width: 340px;
-  flex-shrink: 0;
-  background: #111;
-  border: 2px solid #222;
-  border-radius: 28px;
-  padding: 16px;
-  position: relative;
+.mobile-nav button {
+  flex-shrink:0;
+  background:rgba(255,255,255,.03);
+  border:1px solid var(--border);
+  border-radius:6px;
+  padding:8px 14px;
+  color:var(--muted);
+  font-family:'Inter',sans-serif;
+  font-size:11px;
+  font-weight:600;
+  cursor:pointer;
 }
-.phone-notch {
-  width: 100px;
-  height: 6px;
-  background: #222;
-  border-radius: 3px;
-  margin: 0 auto 12px;
-}
-.phone-header {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 16px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #222;
-}
-.phone-avatar {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: rgba(59,130,246,0.15);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-  font-weight: 700;
-  color: #3b82f6;
-}
-.phone-name {
-  font-size: 14px;
-  font-weight: 600;
-  color: #fff;
-}
-.phone-status {
-  font-size: 10px;
-  color: #22c55e;
-}
-.sms {
-  margin-bottom: 10px;
-}
-.sms-bubble {
-  max-width: 85%;
-  padding: 10px 14px;
-  border-radius: 16px;
-  font-size: 13px;
-  line-height: 1.45;
-}
-.sms-client {
-  background: #2a2a2a;
-  color: #d4d4d4;
-  border-bottom-left-radius: 4px;
-  margin-right: auto;
-}
-.sms-ai {
-  background: #1a56db;
-  color: #fff;
-  border-bottom-right-radius: 4px;
-  margin-left: auto;
-}
-.sms-time {
-  font-size: 9px;
-  color: #555;
-  margin-top: 3px;
-  text-align: center;
-}
-.phone-context {
-  flex: 1;
-  padding-top: 10px;
-}
-.context-card {
-  background: rgba(255,255,255,0.02);
-  border: 1px solid rgba(255,255,255,0.06);
-  border-radius: 10px;
-  padding: 16px;
-  margin-bottom: 12px;
-}
-.context-card .cc-title {
-  font-size: 10px;
-  font-weight: 700;
-  color: #3b82f6;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  margin-bottom: 8px;
-}
-.context-card p {
-  font-size: 13px;
-  color: #94a3b8;
-  line-height: 1.5;
-}
-.context-card .highlight {
-  color: #fff;
-  font-weight: 600;
-}
-
-/* EMAIL MOCKUP */
-.email-mock {
-  background: #111;
-  border: 1px solid #222;
-  border-radius: 12px;
-  padding: 24px;
-  max-width: 650px;
-}
-.email-topbar {
-  display: flex;
-  gap: 6px;
-  margin-bottom: 16px;
-}
-.email-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-}
-.dot-red { background: #ff5f57; }
-.dot-yellow { background: #febc2e; }
-.dot-green { background: #28c840; }
-.email-meta {
-  margin-bottom: 14px;
-  padding-bottom: 14px;
-  border-bottom: 1px solid #222;
-}
-.email-row {
-  display: flex;
-  gap: 10px;
-  font-size: 12px;
-  margin-bottom: 4px;
-}
-.email-label { color: #555; width: 55px; flex-shrink: 0; }
-.email-val { color: #ccc; }
-.email-val strong { color: #fff; }
-.email-subject {
-  font-size: 16px;
-  font-weight: 700;
-  color: #fff;
-  margin-top: 8px;
-}
-.email-content {
-  font-size: 13.5px;
-  color: #b0b8c4;
-  line-height: 1.65;
-}
-.email-content p { margin-bottom: 12px; }
-.email-sig {
-  margin-top: 16px;
-  padding-top: 12px;
-  border-top: 1px solid #222;
-  font-size: 12px;
-  color: #555;
-  line-height: 1.5;
-}
-
-/* MORNING REPORT */
-.report-mock {
-  background: #111;
-  border: 1px solid #222;
-  border-radius: 12px;
-  padding: 24px;
-  max-width: 650px;
-}
-.report-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-  padding-bottom: 14px;
-  border-bottom: 1px solid #222;
-}
-.report-title {
-  font-size: 18px;
-  font-weight: 800;
-  color: #fff;
-}
-.report-date {
-  font-size: 12px;
-  color: #555;
-}
-.report-stats {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  gap: 12px;
-  margin-bottom: 20px;
-}
-.rstat {
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.06);
-  border-radius: 8px;
-  padding: 12px;
-  text-align: center;
-}
-.rstat .num {
-  font-size: 28px;
-  font-weight: 800;
-  color: #3b82f6;
-  line-height: 1;
-}
-.rstat .num.green { color: #22c55e; }
-.rstat .num.gold { color: #D4A853; }
-.rstat .rlabel {
-  font-size: 10px;
-  color: #555;
-  margin-top: 4px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-.report-log {
-  font-size: 12px;
-}
-.log-item {
-  display: flex;
-  gap: 10px;
-  padding: 8px 0;
-  border-bottom: 1px solid rgba(255,255,255,0.04);
-}
-.log-time { color: #444; width: 65px; flex-shrink: 0; }
-.log-event { color: #94a3b8; }
-.log-event strong { color: #e2e8f0; }
-
-/* RESULTS */
-.results-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
-  margin-top: 20px;
-}
-.result-card {
-  background: rgba(59,130,246,0.04);
-  border: 1px solid rgba(59,130,246,0.1);
-  border-radius: 12px;
-  padding: 24px 16px;
-  text-align: center;
-}
-.result-card .rnum {
-  font-size: 36px;
-  font-weight: 900;
-  color: #3b82f6;
-  line-height: 1;
-  margin-bottom: 6px;
-}
-.result-card .rnum.green { color: #22c55e; }
-.result-card .rnum.gold { color: #D4A853; }
-.result-card .rlabel {
-  font-size: 11px;
-  color: #64748b;
-  line-height: 1.3;
-}
-
-/* MOBILE RESPONSIVE */
-@media (max-width: 768px) {
-  .header { padding: 30px 20px 20px; }
-  .header h1 { font-size: 26px; }
-  .header .sub { font-size: 14px; }
-  .sections { padding: 0 16px; }
-  .section h2 { font-size: 20px; }
-  .section-sub { font-size: 12px; }
-  .phone-section { flex-direction: column; gap: 20px; }
-  .phone { width: 100%; }
-  .email-mock, .report-mock { padding: 16px; }
-  .email-subject { font-size: 14px; }
-  .email-content { font-size: 12.5px; }
-  .report-stats { grid-template-columns: 1fr 1fr; }
-  .results-grid { grid-template-columns: 1fr 1fr; }
-  .result-card { padding: 16px 10px; }
-  .result-card .rnum { font-size: 28px; }
-  .context-card { max-width: 100% !important; }
-  .email-mock { max-width: 100% !important; }
-  .report-mock { max-width: 100% !important; }
-  .report-header { flex-direction: column; gap: 4px; align-items: flex-start; }
-  .log-item { font-size: 11px; }
-  .log-time { width: 55px; font-size: 10px; }
-  /* Section 5 call grid */
-  .section div[style*="grid-template-columns:1fr 1fr"] { grid-template-columns: 1fr !important; }
-  /* Section 6 renewal stats */
-  .section div[style*="grid-template-columns:repeat(4"] { grid-template-columns: 1fr 1fr !important; }
-  /* Section 6 renewal table */
-  .section div[style*="grid-template-columns:2fr"] { grid-template-columns: 1fr !important; gap: 2px; }
-  .section div[style*="grid-template-columns:2fr"] span { font-size: 11px !important; }
-  .header-badge { font-size: 10px; padding: 5px 14px; }
-}
-
-/* FOOTER */
-.demo-footer {
-  text-align: center;
-  padding: 40px;
-  font-size: 11px;
-  color: #333;
-}
-.demo-footer span { color: #475569; font-weight: 600; }
+.mobile-nav button.active { background:rgba(59,130,246,.1); border-color:rgba(59,130,246,.2); color:var(--blue); }
 </style>
 </head>
 <body>
+<div class="app">
 
-<!-- HEADER -->
-<div class="header">
-  <div class="header-badge">AI Employee Demo — The Wicks Insurance Group</div>
-  <h1>This is what your <em>AI employee</em> does while your team sleeps.</h1>
-  <div class="sub">Every interaction below happened autonomously. No human touched it.</div>
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-logo">AI Employee</div>
+    <div class="sidebar-company">Wicks Insurance Group</div>
+    <div class="sidebar-status"><div class="pulse-dot"></div> Active — Running 24/7</div>
+  </div>
+  <div class="scenarios">
+    <div class="scenarios-title">Scenarios</div>
+    <button class="scenario-btn active" onclick="showScenario('welcome')">
+      <div class="s-icon">🏠</div>
+      <span class="s-title">Welcome</span>
+      <span class="s-desc">Overview of your AI employee</span>
+    </button>
+    <button class="scenario-btn" onclick="showScenario('afterhours')">
+      <div class="s-icon">💬</div>
+      <span class="s-title">After-Hours Service</span>
+      <span class="s-desc">Client texts at 8:47 PM</span>
+    </button>
+    <button class="scenario-btn" onclick="showScenario('call')">
+      <div class="s-icon">📞</div>
+      <span class="s-title">Inbound Call Handling</span>
+      <span class="s-desc">New lead — 47 second resolution</span>
+    </button>
+    <button class="scenario-btn" onclick="showScenario('renewal')">
+      <div class="s-icon">📋</div>
+      <span class="s-title">Renewal Command Center</span>
+      <span class="s-desc">Your entire book, managed</span>
+    </button>
+    <button class="scenario-btn" onclick="showScenario('atrisk')">
+      <div class="s-icon">⚠️</div>
+      <span class="s-title">At-Risk Client Alert</span>
+      <span class="s-desc">AI catches what your team misses</span>
+    </button>
+    <button class="scenario-btn" onclick="showScenario('results')">
+      <div class="s-icon">📈</div>
+      <span class="s-title">30-Day Projection</span>
+      <span class="s-desc">What the first month looks like</span>
+    </button>
+  </div>
+  <div class="sidebar-footer">Powered by <span>Mainstay Digital</span><br>mainstayhq.com</div>
 </div>
 
-<div class="sections">
+<!-- MOBILE NAV -->
+<div class="mobile-nav">
+  <button class="active" onclick="showScenario('welcome')">🏠 Home</button>
+  <button onclick="showScenario('afterhours')">💬 Service</button>
+  <button onclick="showScenario('call')">📞 Calls</button>
+  <button onclick="showScenario('renewal')">📋 Renewals</button>
+  <button onclick="showScenario('atrisk')">⚠️ Alerts</button>
+  <button onclick="showScenario('results')">📈 Results</button>
+</div>
 
-  <!-- SECTION 1: TEXT CONVERSATION -->
-  <div class="section">
-    <div class="section-num">01 — After-Hours Client Service</div>
-    <h2>Client texts at 8:47 PM. Resolved in 2 minutes.</h2>
-    <div class="section-sub">Your office closed at 5. The AI employee didn't.</div>
+<!-- MAIN -->
+<div class="main">
+  <div class="topbar">
+    <div class="topbar-title"><em>AI Employee</em> — The Wicks Insurance Group</div>
+    <div class="topbar-stats">
+      <div class="tstat"><div class="tv">247</div><div class="tl">Handled</div></div>
+      <div class="tstat"><div class="tv">98%</div><div class="tl">Response</div></div>
+      <div class="tstat"><div class="tv">&lt;30s</div><div class="tl">Avg Time</div></div>
+      <div class="tstat"><div class="tv">24/7</div><div class="tl">Uptime</div></div>
+    </div>
+  </div>
+  <div class="content">
 
-    <div class="phone-section">
-      <div class="phone">
-        <div class="phone-notch"></div>
-        <div class="phone-header">
-          <div class="phone-avatar">WI</div>
+    <!-- WELCOME -->
+    <div class="scenario-view active" id="v-welcome">
+      <div class="welcome">
+        <h2>Your <em>AI Employee</em> is ready.</h2>
+        <p>This is what an AI employee looks like inside The Wicks Insurance Group. Click any scenario on the left to see it in action — handling clients, managing renewals, catching risks, and growing your business 24/7.</p>
+        <div class="start-hint"><span class="arrow-left">←</span> Choose a scenario to begin</div>
+      </div>
+    </div>
+
+    <!-- AFTER HOURS -->
+    <div class="scenario-view" id="v-afterhours">
+      <div class="view-header">
+        <div class="view-tag">After-Hours Client Service</div>
+        <div class="view-title">Client texts at 8:47 PM. Resolved in 2 minutes.</div>
+        <div class="view-sub">Your office closed at 5. Your AI employee didn't.</div>
+      </div>
+      <button class="play-btn" onclick="playChat()">▶ Play Scenario</button>
+      <div class="chat-container" id="chat-afterhours"></div>
+      <div class="context-box" id="ctx-afterhours" style="opacity:0;transition:opacity .5s;">
+        <div class="cb-title">What your competitors did</div>
+        <p>Their phone went to voicemail. Sarah is still waiting. She'll call someone else in the morning. <strong>You answered in 12 seconds at 8:47 PM.</strong> That's the difference.</p>
+      </div>
+    </div>
+
+    <!-- CALL HANDLING -->
+    <div class="scenario-view" id="v-call">
+      <div class="view-header">
+        <div class="view-tag">Inbound Call Handling</div>
+        <div class="view-title">New lead calls in. AI handles everything in 47 seconds.</div>
+        <div class="view-sub">Answered, logged, routed, confirmed — no human needed.</div>
+      </div>
+      <button class="play-btn" onclick="playCall()">▶ Play Scenario</button>
+      <div class="info-grid" id="call-info" style="opacity:0;transition:opacity .5s;">
+        <div class="info-card">
+          <div class="ic-label">Caller</div>
+          <div class="ic-val">Mike Reeves</div>
+          <div class="ic-sub">(603) 555-0182</div>
+        </div>
+        <div class="info-card">
+          <div class="ic-label">Request</div>
+          <div class="ic-val">Commercial GL Quote</div>
+          <div class="ic-sub">Landscaping business, 8 employees</div>
+        </div>
+      </div>
+      <div class="action-log" id="call-actions"></div>
+      <div class="context-box" id="ctx-call" style="opacity:0;transition:opacity .5s;">
+        <div class="cb-title">The bottom line</div>
+        <p>Without AI: Mike calls, gets voicemail, calls your competitor. With AI: answered instantly, info logged, agent notified, Mike gets a confirmation text. All in <span class="highlight">47 seconds</span>. He's not calling anyone else.</p>
+      </div>
+    </div>
+
+    <!-- RENEWALS -->
+    <div class="scenario-view" id="v-renewal">
+      <div class="view-header">
+        <div class="view-tag">Renewal Command Center</div>
+        <div class="view-title">Every policy. Every date. Nothing falls through.</div>
+        <div class="view-sub">Your AI employee tracks your entire book and acts before it's too late.</div>
+      </div>
+      <button class="play-btn" onclick="playRenewals()">▶ Show Dashboard</button>
+      <div class="stats-row" id="renewal-stats" style="opacity:0;transition:opacity .5s;">
+        <div class="stat-box"><div class="sb-num" id="rn-due">0</div><div class="sb-label">Due This Month</div></div>
+        <div class="stat-box"><div class="sb-num green" id="rn-contacted">0</div><div class="sb-label">Contacted</div></div>
+        <div class="stat-box"><div class="sb-num gold" id="rn-reshopped">0</div><div class="sb-label">Re-Shopped</div></div>
+        <div class="stat-box"><div class="sb-num" id="rn-atrisk" style="color:var(--red)">0</div><div class="sb-label">At Risk</div></div>
+      </div>
+      <div class="renewal-table" id="renewal-table" style="opacity:0;transition:opacity .5s;">
+        <div class="rt-header"><span>Client</span><span>Policy Type</span><span>Expires</span><span>Status</span></div>
+        <div class="rt-row" data-delay="0"><span class="rt-name">Robert Johnson</span><span class="rt-type">Auto — Multi-Vehicle</span><span>May 25</span><span class="rt-status status-green">✓ Contacted</span></div>
+        <div class="rt-row" data-delay="1"><span class="rt-name">Lisa Chen</span><span class="rt-type">Homeowner's</span><span>Apr 18</span><span class="rt-status status-green">✓ Renewed</span></div>
+        <div class="rt-row" data-delay="2"><span class="rt-name">Martinez Family</span><span class="rt-type">Auto + Home</span><span>Apr 22</span><span class="rt-status status-gold">⟳ Re-Shopping</span></div>
+        <div class="rt-row at-risk" data-delay="3"><span class="rt-name">⚠️ Tom Parker</span><span class="rt-type">Homeowner's</span><span>Apr 5</span><span class="rt-status status-red">⚠ At Risk</span></div>
+        <div class="rt-row" data-delay="4"><span class="rt-name">O'Brien Construction</span><span class="rt-type">Commercial GL</span><span>May 1</span><span class="rt-status status-blue">◯ Queued</span></div>
+      </div>
+      <div class="context-box" id="ctx-renewal" style="opacity:0;transition:opacity .5s;">
+        <div class="cb-title">Why this matters</div>
+        <p>Right now, nobody knows which renewals are at risk until it's too late. Your AI employee reaches out at <span class="highlight">60 days instead of 30</span>, re-shops rates automatically, and flags problems before clients leave. You <strong>never lose a renewal because someone forgot</strong>.</p>
+      </div>
+    </div>
+
+    <!-- AT RISK -->
+    <div class="scenario-view" id="v-atrisk">
+      <div class="view-header">
+        <div class="view-tag">At-Risk Client Detection</div>
+        <div class="view-title">The AI catches what your team misses.</div>
+        <div class="view-sub">Proactive alerts before a client walks out the door.</div>
+      </div>
+      <button class="play-btn" onclick="playAlert()">▶ Show Alert</button>
+      <div class="alert-box" id="alert-box">
+        <div class="alert-header">
+          <div class="alert-icon">⚠️</div>
           <div>
-            <div class="phone-name">Wicks Insurance</div>
-            <div class="phone-status">● Online</div>
+            <div class="alert-title">At-Risk Client Detected</div>
+            <div class="alert-sub">Flagged by AI Employee • Today at 3:15 PM</div>
           </div>
         </div>
-
-        <div class="sms-time">8:47 PM — After Hours</div>
-
-        <div class="sms">
-          <div class="sms-bubble sms-client">Hi, I need a certificate of insurance sent to my contractor by tomorrow morning. His email is jharris@harrisbuilders.com. Can someone help?</div>
+        <div class="info-grid" style="margin-bottom:14px;">
+          <div class="info-card"><div class="ic-label">Client</div><div class="ic-val">Tom Parker</div></div>
+          <div class="info-card"><div class="ic-label">Policy</div><div class="ic-val">Homeowner's #WK-2891</div></div>
         </div>
-
-        <div class="sms">
-          <div class="sms-bubble sms-ai">Hi Sarah! I can help with that right now. Pulling up your policy #WK-3847. I'll have the certificate sent to Harris Builders within the next few minutes.</div>
+        <div class="alert-detail">
+          • Called about <strong>premium increase</strong> — expressed frustration<br>
+          • Used phrase <span class="red">"I might need to shop around"</span><br>
+          • Renewal is <strong>10 days away</strong> (Apr 5)<br>
+          • Client lifetime value: <strong style="color:var(--gold)">$4,200/year</strong>
         </div>
-
-        <div class="sms-time">12 seconds later</div>
-
-        <div class="sms">
-          <div class="sms-bubble sms-client">Wow that was fast! I thought I'd have to wait until morning. Thank you!</div>
+        <div class="alert-actions">
+          <strong>✓ Already re-shopped</strong> across 4 carriers — found $180/year savings with Travelers<br><br>
+          <strong>→ Recommended:</strong> Personal call from Kurt within 24 hours<br>
+          <strong>→ Script:</strong> "Tom, I personally reviewed your account and found a way to save you $180/year with the same coverage."
         </div>
-
-        <div class="sms">
-          <div class="sms-bubble sms-ai">Done! Certificate sent to jharris@harrisbuilders.com. Copy in your email too. Anything else tonight, Sarah?</div>
-        </div>
-      </div>
-
-      <div class="phone-context">
-        <div class="context-card">
-          <div class="cc-title">What happened here</div>
-          <p>A client needed a certificate of insurance at <span class="highlight">8:47 PM on a Tuesday</span>. Without an AI employee, this goes to voicemail. The contractor doesn't get it. The job gets delayed. The client gets frustrated.</p>
-          <p style="margin-top:10px;">Instead, it was <span class="highlight">resolved in under 2 minutes</span>. The client thinks your team is incredible. They tell their friends.</p>
-        </div>
-        <div class="context-card">
-          <div class="cc-title">What your competitors did</div>
-          <p>Their phone went to voicemail. The client is still waiting.</p>
-        </div>
+        <div class="alert-save">💡 If saved: Tom stays 8+ years = $33,600+ in lifetime premium</div>
       </div>
     </div>
+
+    <!-- RESULTS -->
+    <div class="scenario-view" id="v-results">
+      <div class="view-header">
+        <div class="view-tag">30-Day Projection</div>
+        <div class="view-title">What the first month looks like.</div>
+        <div class="view-sub">Conservative estimates based on 300 policies/month.</div>
+      </div>
+      <button class="play-btn" onclick="playResults()">▶ Show Results</button>
+      <div class="stats-row" id="results-stats" style="opacity:0;transition:opacity .5s;">
+        <div class="stat-box"><div class="sb-num" id="rs-1">0</div><div class="sb-label">Inquiries Handled</div></div>
+        <div class="stat-box"><div class="sb-num green" id="rs-2">0</div><div class="sb-label">Renewals Sent</div></div>
+        <div class="stat-box"><div class="sb-num gold" id="rs-3">0</div><div class="sb-label">Leads Qualified</div></div>
+        <div class="stat-box"><div class="sb-num" id="rs-4">0</div><div class="sb-label">After-Hours Answered</div></div>
+      </div>
+      <div class="context-box" id="ctx-results" style="opacity:0;transition:opacity .5s;">
+        <div class="cb-title">The bottom line</div>
+        <p>Your 20 employees get their time back. Clients get faster service than they've ever had. Renewals get touched <span class="highlight">60 days out instead of 30</span>. Every call at 7 PM, 10 PM, or 2 AM gets answered — <strong>while your competitors go to voicemail.</strong></p>
+        <p style="margin-top:12px;font-size:18px;font-weight:800;color:var(--gold);">All for $600/month.</p>
+      </div>
+    </div>
+
   </div>
-
-  <!-- SECTION 2: RENEWAL EMAIL -->
-  <div class="section">
-    <div class="section-num">02 — Proactive Renewal Outreach</div>
-    <h2>60 days before expiration. Automatically.</h2>
-    <div class="section-sub">No one on your team had to remember. The AI employee handled it.</div>
-
-    <div class="email-mock">
-      <div class="email-topbar">
-        <div class="email-dot dot-red"></div>
-        <div class="email-dot dot-yellow"></div>
-        <div class="email-dot dot-green"></div>
-      </div>
-      <div class="email-meta">
-        <div class="email-row"><span class="email-label">From:</span><span class="email-val"><strong>Wicks Insurance Group</strong></span></div>
-        <div class="email-row"><span class="email-label">To:</span><span class="email-val">rjohnson@email.com</span></div>
-        <div class="email-row"><span class="email-label">Subject:</span></div>
-        <div class="email-subject">Your Auto Policy Renewal — Let's Make Sure You're Getting the Best Rate</div>
-      </div>
-      <div class="email-content">
-        <p>Hi Robert,</p>
-        <p>I wanted to reach out ahead of your auto policy renewal coming up on May 25th. We like to get ahead of these by a couple months so you're never scrambling at the last minute.</p>
-        <p>I've already started shopping rates across our carrier network to make sure you're getting the most competitive pricing. A few things I want to check with you:</p>
-        <p>• Any changes to vehicles or drivers this year?<br>
-        • Have you had any claims or tickets since last renewal?<br>
-        • Are you interested in bundling with your homeowner's for additional savings?</p>
-        <p>If you have a few minutes this week, I'd love to hop on a quick call to review your options. You can grab a time here or just reply to this email.</p>
-        <p>Looking forward to making sure you're covered at the best possible rate.</p>
-        <div class="email-sig">
-          The Wicks Insurance Group<br>
-          (603) 533-0395 • wicksinsurance.com
-        </div>
-      </div>
-    </div>
-
-    <div class="context-card" style="max-width:650px; margin-top:16px;">
-      <div class="cc-title">Why this matters</div>
-      <p>Your team was going to touch this renewal <span class="highlight">30 days before expiration</span>. By then, Robert already got a quote from GEICO. The AI employee reached out at <span class="highlight">60 days</span> — before anyone else could. Robert's staying.</p>
-    </div>
-  </div>
-
-  <!-- SECTION 3: MORNING REPORT -->
-  <div class="section">
-    <div class="section-num">03 — Your Morning Briefing</div>
-    <h2>What your AI employee did while you slept.</h2>
-    <div class="section-sub">This lands in your inbox every morning at 7 AM.</div>
-
-    <div class="report-mock">
-      <div class="report-header">
-        <div class="report-title">🟢 Overnight Report — Wicks Insurance AI</div>
-        <div class="report-date">Wednesday, March 26, 2026</div>
-      </div>
-
-      <div class="report-stats">
-        <div class="rstat"><div class="num">8</div><div class="rlabel">Inquiries<br>Handled</div></div>
-        <div class="rstat"><div class="num green">3</div><div class="rlabel">Leads<br>Qualified</div></div>
-        <div class="rstat"><div class="num gold">5</div><div class="rlabel">Renewals<br>Sent</div></div>
-        <div class="rstat"><div class="num">14s</div><div class="rlabel">Avg Response<br>Time</div></div>
-      </div>
-
-      <div class="report-log">
-        <div class="log-item"><span class="log-time">5:30 PM</span><span class="log-event">Followed up on <strong>5 outstanding quotes</strong> from this week</span></div>
-        <div class="log-item"><span class="log-time">6:15 PM</span><span class="log-event">Answered billing question — <strong>Tom Parker</strong> re: premium increase</span></div>
-        <div class="log-item"><span class="log-time">7:50 PM</span><span class="log-event">Drafted outreach to <strong>Northshore Construction</strong> — new commercial permit filed</span></div>
-        <div class="log-item"><span class="log-time">8:47 PM</span><span class="log-event">Resolved COI request — <strong>Sarah Mitchell</strong> → Harris Builders</span></div>
-        <div class="log-item"><span class="log-time">9:22 PM</span><span class="log-event">Qualified inbound lead — <strong>Mike Reeves</strong>, commercial GL for landscaping co.</span></div>
-        <div class="log-item"><span class="log-time">10:05 PM</span><span class="log-event">Sent <strong>5 renewal outreach emails</strong> — 60-day window policies</span></div>
-        <div class="log-item"><span class="log-time">11:30 PM</span><span class="log-event">Answered coverage question — <strong>Lisa Chen</strong> re: flood endorsement</span></div>
-        <div class="log-item"><span class="log-time">6:45 AM</span><span class="log-event">Generated this morning report ✅</span></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- SECTION 4: 30-DAY RESULTS -->
-  <div class="section">
-    <div class="section-num">04 — Projected 30-Day Results</div>
-    <h2>This is what the first month looks like.</h2>
-    <div class="section-sub">Conservative estimates based on your current volume of 300 policies/month.</div>
-
-    <div class="results-grid">
-      <div class="result-card"><div class="rnum">720+</div><div class="rlabel">Client inquiries<br>handled</div></div>
-      <div class="result-card"><div class="rnum green">150</div><div class="rlabel">Renewal outreach<br>emails sent</div></div>
-      <div class="result-card"><div class="rnum gold">45+</div><div class="rlabel">New leads<br>qualified</div></div>
-      <div class="result-card"><div class="rnum">100%</div><div class="rlabel">After-hours calls<br>answered</div></div>
-    </div>
-
-    <div class="context-card" style="margin-top:20px;">
-      <div class="cc-title">The bottom line</div>
-      <p>Your 20 employees get their time back. Your clients get faster service than they've ever had. Your renewals get touched <span class="highlight">60 days out instead of 30</span>. And every call that comes in at 7 PM, 10 PM, or 2 AM gets answered — <span class="highlight">while your competitors go to voicemail.</span></p>
-      <p style="margin-top:10px;">All for <span class="highlight">$600/month</span>.</p>
-    </div>
-  </div>
-
-  <!-- SECTION 5: CALL SUMMARY -->
-  <div class="section">
-    <div class="section-num">05 — Inbound Call Handling</div>
-    <h2>Call comes in. AI handles it before your team even knows.</h2>
-    <div class="section-sub">Every call gets answered, logged, routed, and confirmed — automatically.</div>
-
-    <div class="email-mock" style="max-width:650px;">
-      <div class="email-topbar">
-        <div class="email-dot dot-red"></div>
-        <div class="email-dot dot-yellow"></div>
-        <div class="email-dot dot-green"></div>
-      </div>
-      <div style="padding:4px 0;">
-        <div style="font-size:12px; color:#3b82f6; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; margin-bottom:12px;">📞 Inbound Call — Processed</div>
-
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:16px;">
-          <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); border-radius:6px; padding:10px;">
-            <div style="font-size:9px; color:#555; text-transform:uppercase; letter-spacing:1px; margin-bottom:4px;">Caller</div>
-            <div style="font-size:14px; color:#fff; font-weight:600;">Mike Reeves</div>
-            <div style="font-size:11px; color:#888;">(603) 555-0182</div>
-          </div>
-          <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); border-radius:6px; padding:10px;">
-            <div style="font-size:9px; color:#555; text-transform:uppercase; letter-spacing:1px; margin-bottom:4px;">Request</div>
-            <div style="font-size:14px; color:#fff; font-weight:600;">Commercial GL Quote</div>
-            <div style="font-size:11px; color:#888;">Landscaping business, 8 employees</div>
-          </div>
-        </div>
-
-        <div style="font-size:11px; color:#64748b; text-transform:uppercase; letter-spacing:1px; font-weight:600; margin-bottom:8px;">AI Actions Completed</div>
-
-        <div style="display:flex; align-items:center; gap:8px; margin-bottom:6px; font-size:12px;">
-          <div style="width:18px; height:18px; background:rgba(34,197,94,0.15); color:#22c55e; border-radius:4px; display:flex; align-items:center; justify-content:center; font-size:10px; flex-shrink:0;">✓</div>
-          <span style="color:#94a3b8;">Answered call, collected business details</span>
-          <span style="margin-left:auto; color:#3b82f6; font-size:10px;">2:34 PM</span>
-        </div>
-        <div style="display:flex; align-items:center; gap:8px; margin-bottom:6px; font-size:12px;">
-          <div style="width:18px; height:18px; background:rgba(34,197,94,0.15); color:#22c55e; border-radius:4px; display:flex; align-items:center; justify-content:center; font-size:10px; flex-shrink:0;">✓</div>
-          <span style="color:#94a3b8;">Created new prospect in AMS</span>
-          <span style="margin-left:auto; color:#3b82f6; font-size:10px;">2:34 PM</span>
-        </div>
-        <div style="display:flex; align-items:center; gap:8px; margin-bottom:6px; font-size:12px;">
-          <div style="width:18px; height:18px; background:rgba(34,197,94,0.15); color:#22c55e; border-radius:4px; display:flex; align-items:center; justify-content:center; font-size:10px; flex-shrink:0;">✓</div>
-          <span style="color:#94a3b8;">Routed to <strong style="color:#fff;">Agent: Dave Thompson</strong> (Commercial Lines)</span>
-          <span style="margin-left:auto; color:#3b82f6; font-size:10px;">2:35 PM</span>
-        </div>
-        <div style="display:flex; align-items:center; gap:8px; margin-bottom:6px; font-size:12px;">
-          <div style="width:18px; height:18px; background:rgba(34,197,94,0.15); color:#22c55e; border-radius:4px; display:flex; align-items:center; justify-content:center; font-size:10px; flex-shrink:0;">✓</div>
-          <span style="color:#94a3b8;">Sent confirmation text to caller: "Thanks Mike! Dave will reach out within the hour."</span>
-          <span style="margin-left:auto; color:#3b82f6; font-size:10px;">2:35 PM</span>
-        </div>
-        <div style="display:flex; align-items:center; gap:8px; margin-bottom:6px; font-size:12px;">
-          <div style="width:18px; height:18px; background:rgba(34,197,94,0.15); color:#22c55e; border-radius:4px; display:flex; align-items:center; justify-content:center; font-size:10px; flex-shrink:0;">✓</div>
-          <span style="color:#94a3b8;">Scheduled follow-up reminder for Dave — tomorrow 9 AM</span>
-          <span style="margin-left:auto; color:#3b82f6; font-size:10px;">2:35 PM</span>
-        </div>
-
-        <div style="margin-top:14px; padding-top:12px; border-top:1px solid #222; display:flex; justify-content:space-between; font-size:11px;">
-          <span style="color:#555;">Total handling time</span>
-          <span style="color:#3b82f6; font-weight:700;">47 seconds</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="context-card" style="max-width:650px; margin-top:16px;">
-      <div class="cc-title">What this means</div>
-      <p>Before: Mike calls, gets voicemail, calls your competitor. After: Mike gets <span class="highlight">answered instantly</span>, his info is logged, the right agent is notified, and Mike gets a confirmation text — all in <span class="highlight">47 seconds</span>. He's not calling anyone else.</p>
-    </div>
-  </div>
-
-  <!-- SECTION 6: RENEWAL DASHBOARD -->
-  <div class="section">
-    <div class="section-num">06 — Renewal Command Center</div>
-    <h2>Every policy. Every date. Nothing falls through.</h2>
-    <div class="section-sub">Your AI employee tracks your entire book and acts before it's too late.</div>
-
-    <div class="email-mock" style="max-width:750px; padding:20px;">
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; padding-bottom:12px; border-bottom:1px solid #222;">
-        <div style="font-size:16px; font-weight:700; color:#fff;">Renewal Pipeline — March 2026</div>
-        <div style="font-size:11px; color:#555;">Updated live by AI Employee</div>
-      </div>
-
-      <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-bottom:18px;">
-        <div style="background:rgba(59,130,246,0.06); border:1px solid rgba(59,130,246,0.12); border-radius:8px; padding:12px; text-align:center;">
-          <div style="font-size:24px; font-weight:800; color:#3b82f6;">47</div>
-          <div style="font-size:9px; color:#555; text-transform:uppercase; letter-spacing:0.5px;">Due This Month</div>
-        </div>
-        <div style="background:rgba(34,197,94,0.06); border:1px solid rgba(34,197,94,0.12); border-radius:8px; padding:12px; text-align:center;">
-          <div style="font-size:24px; font-weight:800; color:#22c55e;">31</div>
-          <div style="font-size:9px; color:#555; text-transform:uppercase; letter-spacing:0.5px;">Contacted</div>
-        </div>
-        <div style="background:rgba(212,168,83,0.06); border:1px solid rgba(212,168,83,0.12); border-radius:8px; padding:12px; text-align:center;">
-          <div style="font-size:24px; font-weight:800; color:#D4A853;">12</div>
-          <div style="font-size:9px; color:#555; text-transform:uppercase; letter-spacing:0.5px;">Re-Shopped</div>
-        </div>
-        <div style="background:rgba(239,68,68,0.06); border:1px solid rgba(239,68,68,0.12); border-radius:8px; padding:12px; text-align:center;">
-          <div style="font-size:24px; font-weight:800; color:#ef4444;">4</div>
-          <div style="font-size:9px; color:#555; text-transform:uppercase; letter-spacing:0.5px;">At Risk</div>
-        </div>
-      </div>
-
-      <div style="font-size:10px; color:#555; text-transform:uppercase; letter-spacing:1px; font-weight:600; margin-bottom:8px;">Active Renewals</div>
-
-      <div style="border:1px solid #222; border-radius:8px; overflow:hidden; font-size:12px;">
-        <div style="display:grid; grid-template-columns:2fr 1.5fr 1fr 1fr 1fr; padding:8px 12px; background:rgba(255,255,255,0.03); border-bottom:1px solid #222; font-weight:600; color:#555; font-size:10px; text-transform:uppercase; letter-spacing:0.5px;">
-          <span>Client</span><span>Policy Type</span><span>Expires</span><span>Status</span><span>Action</span>
-        </div>
-        <div style="display:grid; grid-template-columns:2fr 1.5fr 1fr 1fr 1fr; padding:8px 12px; border-bottom:1px solid rgba(255,255,255,0.03); align-items:center;">
-          <span style="color:#e2e8f0; font-weight:500;">Robert Johnson</span><span style="color:#888;">Auto — Multi-Vehicle</span><span style="color:#888;">May 25</span><span style="color:#22c55e; font-weight:600;">✓ Contacted</span><span style="color:#3b82f6;">Re-shopping</span>
-        </div>
-        <div style="display:grid; grid-template-columns:2fr 1.5fr 1fr 1fr 1fr; padding:8px 12px; border-bottom:1px solid rgba(255,255,255,0.03); align-items:center;">
-          <span style="color:#e2e8f0; font-weight:500;">Lisa Chen</span><span style="color:#888;">Homeowner's</span><span style="color:#888;">Apr 18</span><span style="color:#22c55e; font-weight:600;">✓ Contacted</span><span style="color:#22c55e;">Renewed</span>
-        </div>
-        <div style="display:grid; grid-template-columns:2fr 1.5fr 1fr 1fr 1fr; padding:8px 12px; border-bottom:1px solid rgba(255,255,255,0.03); align-items:center;">
-          <span style="color:#e2e8f0; font-weight:500;">Martinez Family</span><span style="color:#888;">Auto + Home Bundle</span><span style="color:#888;">Apr 22</span><span style="color:#D4A853; font-weight:600;">⟳ Re-Shopping</span><span style="color:#D4A853;">3 quotes out</span>
-        </div>
-        <div style="display:grid; grid-template-columns:2fr 1.5fr 1fr 1fr 1fr; padding:8px 12px; border-bottom:1px solid rgba(255,255,255,0.03); align-items:center; background:rgba(239,68,68,0.03);">
-          <span style="color:#e2e8f0; font-weight:500;">⚠️ Tom Parker</span><span style="color:#888;">Homeowner's</span><span style="color:#888;">Apr 5</span><span style="color:#ef4444; font-weight:600;">⚠ At Risk</span><span style="color:#ef4444;">Premium increase</span>
-        </div>
-        <div style="display:grid; grid-template-columns:2fr 1.5fr 1fr 1fr 1fr; padding:8px 12px; align-items:center;">
-          <span style="color:#e2e8f0; font-weight:500;">O'Brien Construction</span><span style="color:#888;">Commercial GL</span><span style="color:#888;">May 1</span><span style="color:#3b82f6; font-weight:600;">◯ Queued</span><span style="color:#555;">Outreach Apr 1</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="context-card" style="max-width:750px; margin-top:16px;">
-      <div class="cc-title">Why this changes everything</div>
-      <p>Right now, nobody on your team knows which renewals are at risk until it's too late. The AI employee tracks <span class="highlight">every single policy</span>, reaches out at 60 days, re-shops rates automatically, and <span class="highlight">flags at-risk clients before they leave</span>. You never lose a renewal because someone forgot.</p>
-    </div>
-  </div>
-
-  <!-- SECTION 7: AT-RISK ALERT -->
-  <div class="section">
-    <div class="section-num">07 — At-Risk Client Detection</div>
-    <h2>The AI catches what your team misses.</h2>
-    <div class="section-sub">Proactive alerts before a client walks out the door.</div>
-
-    <div class="email-mock" style="max-width:650px;">
-      <div class="email-topbar">
-        <div class="email-dot dot-red"></div>
-        <div class="email-dot dot-yellow"></div>
-        <div class="email-dot dot-green"></div>
-      </div>
-      <div style="padding:4px 0;">
-        <div style="display:flex; align-items:center; gap:10px; margin-bottom:14px;">
-          <div style="width:36px; height:36px; background:rgba(239,68,68,0.15); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:18px;">⚠️</div>
-          <div>
-            <div style="font-size:14px; font-weight:700; color:#ef4444;">At-Risk Client Alert</div>
-            <div style="font-size:11px; color:#555;">Detected by AI Employee • March 26, 2026 at 3:15 PM</div>
-          </div>
-        </div>
-
-        <div style="background:rgba(239,68,68,0.04); border:1px solid rgba(239,68,68,0.12); border-radius:8px; padding:14px; margin-bottom:14px;">
-          <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
-            <div>
-              <div style="font-size:9px; color:#555; text-transform:uppercase; letter-spacing:1px; margin-bottom:3px;">Client</div>
-              <div style="font-size:15px; color:#fff; font-weight:700;">Tom Parker</div>
-            </div>
-            <div>
-              <div style="font-size:9px; color:#555; text-transform:uppercase; letter-spacing:1px; margin-bottom:3px;">Policy</div>
-              <div style="font-size:15px; color:#fff; font-weight:700;">Homeowner's #WK-2891</div>
-            </div>
-          </div>
-        </div>
-
-        <div style="font-size:11px; color:#64748b; text-transform:uppercase; letter-spacing:1px; font-weight:600; margin-bottom:8px;">Why This Was Flagged</div>
-        <div style="font-size:12px; color:#94a3b8; line-height:1.6; margin-bottom:14px;">
-          • Client called about <strong style="color:#e2e8f0;">premium increase</strong> — expressed frustration<br>
-          • Used phrase <strong style="color:#ef4444;">"I might need to shop around"</strong> during the conversation<br>
-          • Renewal is <strong style="color:#e2e8f0;">10 days away</strong> (Apr 5) — critical window<br>
-          • Client lifetime value: <strong style="color:#D4A853;">$4,200/year</strong> across 2 policies
-        </div>
-
-        <div style="font-size:11px; color:#64748b; text-transform:uppercase; letter-spacing:1px; font-weight:600; margin-bottom:8px;">AI Recommended Actions</div>
-        <div style="font-size:12px; color:#94a3b8; line-height:1.6; margin-bottom:14px;">
-          • <strong style="color:#22c55e;">✓ Already re-shopped</strong> across 4 carriers — found $180/year savings with Travelers<br>
-          • <strong style="color:#3b82f6;">→ Recommended:</strong> Personal call from Kurt within 24 hours<br>
-          • <strong style="color:#3b82f6;">→ Talking point:</strong> "Tom, I personally reviewed your account and found a way to save you $180/year while keeping the same coverage."
-        </div>
-
-        <div style="background:rgba(34,197,94,0.06); border:1px solid rgba(34,197,94,0.12); border-radius:6px; padding:10px 12px; font-size:12px; color:#22c55e; font-weight:600;">
-          💡 If saved, Tom stays for an estimated 8+ more years = $33,600+ in lifetime premium
-        </div>
-      </div>
-    </div>
-
-    <div class="context-card" style="max-width:650px; margin-top:16px;">
-      <div class="cc-title">The difference</div>
-      <p>Without AI: Tom's frustration goes in one ear and out the other. He shops around, finds a cheaper quote, and leaves. You find out when the cancellation notice hits. <span class="highlight">$33,600 in lifetime premium — gone.</span></p>
-      <p style="margin-top:10px;">With AI: The system catches it <span class="highlight">the moment it happens</span>, re-shops before Tom can, and gives you the save script. Tom stays. And he thinks you're the best agency he's ever worked with.</p>
-    </div>
-  </div>
-
 </div>
-
-<div class="demo-footer">
-  Powered by <span>Mainstay Digital</span> • mainstayhq.com<br>
-  This demo was built specifically for The Wicks Insurance Group.
 </div>
-
-<style>
-  .section {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
-  }
-  .section.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  .sms, .context-card, .log-item {
-    opacity: 0;
-    transform: translateY(15px);
-    transition: opacity 0.5s ease, transform 0.5s ease;
-  }
-  .sms.show, .context-card.show, .log-item.show {
-    opacity: 1;
-    transform: translateY(0);
-  }
-</style>
 
 <script>
-// Scroll-triggered animations — everything reveals as you scroll down
-// No hidden content, no blank sections, works on any device
+const sleep = ms => new Promise(r => setTimeout(r, ms));
 
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-      entry.target.classList.add('show');
+function showScenario(id) {
+  document.querySelectorAll('.scenario-view').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.scenario-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.mobile-nav button').forEach(b => b.classList.remove('active'));
+  document.getElementById('v-' + id).classList.add('active');
+  // highlight sidebar
+  const btns = document.querySelectorAll('.scenario-btn');
+  const ids = ['welcome','afterhours','call','renewal','atrisk','results'];
+  const idx = ids.indexOf(id);
+  if (idx >= 0 && btns[idx]) btns[idx].classList.add('active');
+  // mobile nav
+  const mbtns = document.querySelectorAll('.mobile-nav button');
+  if (idx >= 0 && mbtns[idx]) mbtns[idx].classList.add('active');
+  document.querySelector('.content').scrollTop = 0;
+}
 
-      // Stagger children animations
-      const children = entry.target.querySelectorAll('.sms, .context-card, .log-item');
-      children.forEach((child, i) => {
-        setTimeout(() => {
-          child.classList.add('show');
-        }, 150 * (i + 1));
-      });
+// CHAT SCENARIO
+async function playChat() {
+  const container = document.getElementById('chat-afterhours');
+  const btn = container.parentElement.querySelector('.play-btn');
+  btn.disabled = true;
+  container.innerHTML = '';
 
-      observer.unobserve(entry.target);
+  const msgs = [
+    { name:'Sarah Mitchell', type:'client', text:'Hi, I need a certificate of insurance sent to my general contractor by tomorrow morning. His email is jharris@harrisbuilders.com. Can someone help me with this tonight?', time:'8:47 PM — After hours' },
+    { name:'Wicks Insurance AI', type:'ai', text:'Hi Sarah! Absolutely — I can help with that right now. I\'m pulling up your policy #WK-3847 to generate the certificate. Just to confirm: you\'d like the certificate holder listed as Harris Builders at jharris@harrisbuilders.com?', time:'8:47 PM — 12 seconds later' },
+    { name:'Sarah Mitchell', type:'client', text:'Yes that\'s correct! Wow that was fast. I thought I\'d have to wait until morning.', time:'8:48 PM' },
+    { name:'Wicks Insurance AI', type:'ai', text:'Done! Certificate sent to jharris@harrisbuilders.com. You\'ll get a copy in your email too. Is there anything else I can help with tonight, Sarah?', time:'8:49 PM' },
+  ];
+
+  for (const msg of msgs) {
+    if (msg.type === 'ai') {
+      // Show typing indicator
+      const typingEl = document.createElement('div');
+      typingEl.className = 'chat-msg show';
+      typingEl.innerHTML = `<div class="chat-avatar av-ai">AI</div><div class="chat-body"><div class="chat-name cn-ai">Wicks Insurance AI</div><div class="typing"><span></span><span></span><span></span></div></div>`;
+      container.appendChild(typingEl);
+      await sleep(1500);
+      container.removeChild(typingEl);
     }
-  });
-}, { threshold: 0.15 });
 
-// Observe all sections
-document.querySelectorAll('.section').forEach(s => observer.observe(s));
+    const el = document.createElement('div');
+    el.className = 'chat-msg';
+    const av = msg.type === 'client' ? 'av-client' : 'av-ai';
+    const cn = msg.type === 'client' ? 'cn-client' : 'cn-ai';
+    const cb = msg.type === 'ai' ? 'cb-ai' : '';
+    const initials = msg.type === 'client' ? 'SM' : 'AI';
+    el.innerHTML = `<div class="chat-avatar ${av}">${initials}</div><div class="chat-body"><div class="chat-name ${cn}">${msg.name}</div><div class="chat-bubble ${cb}">${msg.text}</div><div class="chat-time">${msg.time}</div></div>`;
+    container.appendChild(el);
+    await sleep(50);
+    el.classList.add('show');
+    await sleep(msg.type === 'client' ? 1000 : 500);
+  }
+
+  document.getElementById('ctx-afterhours').style.opacity = '1';
+}
+
+// CALL SCENARIO
+async function playCall() {
+  const container = document.getElementById('call-actions');
+  const btn = container.parentElement.querySelector('.play-btn');
+  btn.disabled = true;
+  container.innerHTML = '';
+  document.getElementById('call-info').style.opacity = '1';
+  await sleep(500);
+
+  const actions = [
+    { text:'Answered call, collected business details', time:'2:34 PM' },
+    { text:'Created new prospect in AMS', time:'2:34 PM' },
+    { text:'Routed to <strong>Agent: Dave Thompson</strong> (Commercial Lines)', time:'2:35 PM' },
+    { text:'Sent confirmation text: "Thanks Mike! Dave will reach out within the hour."', time:'2:35 PM' },
+    { text:'Scheduled follow-up reminder for Dave — tomorrow 9 AM', time:'2:35 PM' },
+  ];
+
+  for (const a of actions) {
+    const el = document.createElement('div');
+    el.className = 'action-item';
+    el.innerHTML = `<div class="action-check">✓</div><span class="action-text">${a.text}</span><span class="action-time">${a.time}</span>`;
+    container.appendChild(el);
+    await sleep(50);
+    el.classList.add('show');
+    await sleep(600);
+  }
+
+  // Total time
+  const total = document.createElement('div');
+  total.style.cssText = 'display:flex;justify-content:space-between;padding:12px 0;border-top:1px solid var(--border);margin-top:8px;font-size:12px;';
+  total.innerHTML = '<span style="color:var(--dim)">Total handling time</span><span style="color:var(--blue);font-weight:700;font-size:16px;">47 seconds</span>';
+  total.style.opacity = '0';
+  total.style.transition = 'opacity .5s';
+  container.appendChild(total);
+  await sleep(100);
+  total.style.opacity = '1';
+
+  await sleep(500);
+  document.getElementById('ctx-call').style.opacity = '1';
+}
+
+// RENEWALS
+async function playRenewals() {
+  const btn = document.querySelector('#v-renewal .play-btn');
+  btn.disabled = true;
+  document.getElementById('renewal-stats').style.opacity = '1';
+
+  // Count up stats
+  const targets = [{el:'rn-due',n:47},{el:'rn-contacted',n:31},{el:'rn-reshopped',n:12},{el:'rn-atrisk',n:4}];
+  for (const t of targets) {
+    const el = document.getElementById(t.el);
+    let c = 0;
+    const step = Math.ceil(t.n / 20);
+    const iv = setInterval(() => { c = Math.min(c + step, t.n); el.textContent = c; if(c>=t.n) clearInterval(iv); }, 50);
+  }
+  await sleep(1200);
+
+  document.getElementById('renewal-table').style.opacity = '1';
+  const rows = document.querySelectorAll('#renewal-table .rt-row');
+  for (const row of rows) {
+    await sleep(200);
+    row.classList.add('show');
+  }
+
+  await sleep(500);
+  document.getElementById('ctx-renewal').style.opacity = '1';
+}
+
+// AT RISK ALERT
+async function playAlert() {
+  const btn = document.querySelector('#v-atrisk .play-btn');
+  btn.disabled = true;
+  await sleep(300);
+  document.getElementById('alert-box').classList.add('show');
+}
+
+// RESULTS
+async function playResults() {
+  const btn = document.querySelector('#v-results .play-btn');
+  btn.disabled = true;
+  document.getElementById('results-stats').style.opacity = '1';
+
+  const targets = [{el:'rs-1',n:720,s:'720+'},{el:'rs-2',n:150,s:'150'},{el:'rs-3',n:45,s:'45+'},{el:'rs-4',n:100,s:'100%'}];
+  for (const t of targets) {
+    const el = document.getElementById(t.el);
+    let c = 0;
+    const step = Math.ceil(t.n / 25);
+    const iv = setInterval(() => { c = Math.min(c+step,t.n); el.textContent = c; if(c>=t.n){clearInterval(iv);el.textContent=t.s;} }, 50);
+  }
+  await sleep(1500);
+  document.getElementById('ctx-results').style.opacity = '1';
+}
 </script>
-
 </body>
 </html>
