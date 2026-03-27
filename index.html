@@ -742,162 +742,52 @@ body {
   This demo was built specifically for The Wicks Insurance Group.
 </div>
 
+<style>
+  .section {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .section.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .sms, .context-card, .log-item {
+    opacity: 0;
+    transform: translateY(15px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .sms.show, .context-card.show, .log-item.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+
 <script>
-function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+// Scroll-triggered animations — everything reveals as you scroll down
+// No hidden content, no blank sections, works on any device
 
-async function typeText(el, text, speed = 18) {
-  el.textContent = '';
-  for (let i = 0; i < text.length; i++) {
-    el.textContent += text[i];
-    await sleep(speed);
-  }
-}
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      entry.target.classList.add('show');
 
-async function fadeIn(el, ms = 500) {
-  el.style.opacity = '0';
-  el.style.transition = `opacity ${ms}ms ease`;
-  el.style.visibility = 'visible';
-  await sleep(30);
-  el.style.opacity = '1';
-  await sleep(ms);
-}
+      // Stagger children animations
+      const children = entry.target.querySelectorAll('.sms, .context-card, .log-item');
+      children.forEach((child, i) => {
+        setTimeout(() => {
+          child.classList.add('show');
+        }, 150 * (i + 1));
+      });
 
-async function countUp(el, target, duration = 1200) {
-  const start = 0;
-  const steps = 30;
-  const stepTime = duration / steps;
-  for (let i = 1; i <= steps; i++) {
-    el.textContent = Math.round((target / steps) * i);
-    await sleep(stepTime);
-  }
-  el.textContent = target;
-}
-
-async function runDemo() {
-  // Hide everything initially
-  const sections = document.querySelectorAll('.section');
-  sections.forEach(s => { s.style.opacity = '0'; s.style.visibility = 'hidden'; });
-
-  // Scroll to top
-  window.scrollTo(0, 0);
-  await sleep(1500);
-
-  // SECTION 1: Phone conversation
-  const s1 = sections[0];
-  s1.style.visibility = 'visible';
-  await fadeIn(s1, 600);
-
-  const smsBubbles = s1.querySelectorAll('.sms-bubble');
-  const smsContainers = s1.querySelectorAll('.sms');
-  smsContainers.forEach(s => { s.style.opacity = '0'; s.style.visibility = 'hidden'; });
-
-  // Client message 1
-  const texts = [];
-  smsBubbles.forEach(b => { texts.push(b.textContent); b.textContent = ''; });
-
-  await sleep(800);
-  smsContainers[0].style.visibility = 'visible';
-  await fadeIn(smsContainers[0], 300);
-  await typeText(smsBubbles[0], texts[0], 14);
-  await sleep(1200);
-
-  // AI response
-  smsContainers[1].style.visibility = 'visible';
-  await fadeIn(smsContainers[1], 300);
-  await typeText(smsBubbles[1], texts[1], 10);
-  await sleep(1000);
-
-  // Client reply
-  smsContainers[2].style.visibility = 'visible';
-  await fadeIn(smsContainers[2], 300);
-  await typeText(smsBubbles[2], texts[2], 14);
-  await sleep(800);
-
-  // AI final
-  smsContainers[3].style.visibility = 'visible';
-  await fadeIn(smsContainers[3], 300);
-  await typeText(smsBubbles[3], texts[3], 10);
-
-  // Show context cards
-  const contextCards = s1.querySelectorAll('.context-card');
-  for (const card of contextCards) {
-    await sleep(600);
-    await fadeIn(card, 400);
-  }
-
-  await sleep(2000);
-
-  // Smooth scroll to section 2
-  sections[1].style.visibility = 'visible';
-  sections[1].scrollIntoView({ behavior: 'smooth', block: 'start' });
-  await sleep(800);
-  await fadeIn(sections[1], 600);
-
-  await sleep(4000);
-
-  // Scroll to section 3
-  sections[2].style.visibility = 'visible';
-  sections[2].scrollIntoView({ behavior: 'smooth', block: 'start' });
-  await sleep(800);
-  await fadeIn(sections[2], 600);
-
-  // Animate stat numbers
-  const rstats = sections[2].querySelectorAll('.rstat .num');
-  const targets = [8, 3, 5, 14];
-  const suffixes = ['', '', '', 's'];
-  await sleep(500);
-  const promises = [];
-  rstats.forEach((el, i) => {
-    const orig = el.textContent;
-    el.textContent = '0';
-    promises.push((async () => {
-      await countUp(el, targets[i], 1000);
-      el.textContent = orig;
-    })());
+      observer.unobserve(entry.target);
+    }
   });
-  await Promise.all(promises);
+}, { threshold: 0.15 });
 
-  // Show log items one by one
-  const logItems = sections[2].querySelectorAll('.log-item');
-  logItems.forEach(l => { l.style.opacity = '0'; l.style.visibility = 'hidden'; });
-  for (const item of logItems) {
-    item.style.visibility = 'visible';
-    await fadeIn(item, 200);
-    await sleep(300);
-  }
-
-  await sleep(3000);
-
-  // Scroll to section 4
-  sections[3].style.visibility = 'visible';
-  sections[3].scrollIntoView({ behavior: 'smooth', block: 'start' });
-  await sleep(800);
-  await fadeIn(sections[3], 600);
-
-  // Count up results
-  const resultNums = sections[3].querySelectorAll('.rnum');
-  const resultTargets = [720, 150, 45, 100];
-  const resultTexts = ['720+', '150', '45+', '100%'];
-  resultNums.forEach(el => { el.textContent = '0'; });
-  await sleep(500);
-  const rPromises = resultNums.length;
-  for (let i = 0; i < resultNums.length; i++) {
-    countUp(resultNums[i], resultTargets[i], 1500);
-  }
-  await sleep(1800);
-  resultNums.forEach((el, i) => { el.textContent = resultTexts[i]; });
-
-  // Show bottom context card
-  const bottomCard = sections[3].querySelector('.context-card');
-  if (bottomCard) {
-    await sleep(500);
-    await fadeIn(bottomCard, 600);
-  }
-
-  await sleep(5000);
-}
-
-setTimeout(runDemo, 1000);
+// Observe all sections
+document.querySelectorAll('.section').forEach(s => observer.observe(s));
 </script>
 
 </body>
